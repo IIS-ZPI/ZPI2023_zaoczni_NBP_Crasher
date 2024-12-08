@@ -9,3 +9,7 @@ class Arithmetics(ABC):
     @abstractmethod
     def multiplication(self, a: float, b: float) -> float:
         pass
+    
+    @abstractmethod
+    def power(self, a: float, b: int) -> float:
+        pass
