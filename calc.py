@@ -1,5 +1,5 @@
 from arithmetics import Arithmetics
-from math import log
+
 # Test 3
 
 class Calc(Arithmetics):
@@ -20,6 +20,3 @@ class Calc(Arithmetics):
     # New method
     def power(self, a: float, b: float) -> float:
         return a ** b
-
-    def log(self, a: float, b: float) -> float:
-        return log(a, b)
