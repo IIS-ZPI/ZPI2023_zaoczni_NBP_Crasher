@@ -15,14 +15,13 @@ class Arithmetics(ABC):
         pass
     
     @abstractmethod
-<<<<<<< HEAD
     def power(self, a: float, b: float) -> float:
         pass
-=======
+    
+    @abstractmethod
     def power(self, a: float, b: int) -> float:
         pass
       
     @abstractmethod
     def divide(self, a: float, b: float) -> float:
         pass
->>>>>>> b0998852ee5e1f3a8b1f073a37aa96e0f8ee72fc
