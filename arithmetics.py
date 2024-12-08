@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 class Arithmetics(ABC):
     # Test 1
     @abstractmethod
@@ -22,4 +21,8 @@ class Arithmetics(ABC):
     # Divide method implementation 
     @abstractmethod
     def divide(self, a: float, b: float) -> float:
+        pass
+
+    @abstractmethod
+    def log(self, a: float, b: float) -> float:
         pass
