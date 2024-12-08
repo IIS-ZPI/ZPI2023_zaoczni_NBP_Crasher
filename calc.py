@@ -7,3 +7,6 @@ class Calc(Arithmetics):
 
     def multiplication(self, a: float, b: float) -> float:
         return a * b
+
+    def power(self, a: float, b: float) -> float:
+        return a ** b

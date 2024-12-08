@@ -11,5 +11,5 @@ class Arithmetics(ABC):
         pass
     
     @abstractmethod
-    def power(self, a: float, b: int) -> float:
+    def power(self, a: float, b: float) -> float:
         pass
