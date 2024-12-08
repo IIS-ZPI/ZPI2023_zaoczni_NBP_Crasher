@@ -21,3 +21,4 @@ class Arithmetics(ABC):
     @abstractmethod
     def divide(self, a: float, b: float) -> float:
         pass
+    #comment 1
