@@ -17,7 +17,8 @@ class Arithmetics(ABC):
     @abstractmethod
     def power(self, a: float, b: float) -> float:
         pass
-      
+    
+    # Divide method implementation 
     @abstractmethod
     def divide(self, a: float, b: float) -> float:
         pass
