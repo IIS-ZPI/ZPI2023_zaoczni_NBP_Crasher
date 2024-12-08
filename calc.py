@@ -1,5 +1,6 @@
 from arithmetics import Arithmetics
 
+# Test 3
 
 class Calc(Arithmetics):
     def addition(self, a: float, b: float) -> float:
