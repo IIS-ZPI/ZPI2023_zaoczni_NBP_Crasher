@@ -16,5 +16,6 @@ class Calc(Arithmetics):
             return 0
         return a/b
     
+    # New method
     def power(self, a: float, b: float) -> float:
         return a ** b
