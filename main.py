@@ -4,3 +4,4 @@ def print_id(github_id: str, role: str = ""):
 if __name__ == "__main__":
     print_id(github_id="GringoXY(Smithski)", role = "scrum master/developer")
     print_id(github_id="siemaEko(Grzegorz Kubicki)")
+    print_id(github_id="StanislawHornaGitHub(Stanisław Horna)")
