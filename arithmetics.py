@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Arithmetics(ABC):
+    # Test 1
     @abstractmethod
     def addition(self, a: float, b: float) -> float:
         pass
