@@ -1,0 +1,75 @@
+name: Check version
+
+on:
+  workflow_call:
+    outputs:
+      version_tag:
+        description: "Version tag retrieved from README.md"
+        value: ${{ jobs.Check.outputs.version_tag }}
+      release_id:
+        description: "Release ID"
+        value: ${{ jobs.Check.outputs.release_id }}
+  
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  success_ico: ":heavy_check_mark:"
+  failure_ico: ":x:"
+  cancel_ico: ":no_entry_sign:"
+
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    outputs:
+      version_tag: ${{ steps.file.outputs.tag_name }}
+      release_id: ${{ steps.release.outputs.release_id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Tag
+        id: file
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $tag = $(Get-Content -Path "./README.md" | Where-Object { $_ -like "##### version:*" })
+
+          if ($null -eq $tag) {
+              Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.failure_ico }} Cannot find version in ./README.md ${{ env.failure_ico }}"
+              throw "No version found in README.md"
+          }
+
+          $tag = $tag.Split(":")[1].Trim()
+
+          $version = [System.Version]$tag
+
+          if (-not $($version.Major -ge 2)){
+              Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.failure_ico }} Version must be greater than or equal to 2.0.0 ${{ env.failure_ico }}"
+              throw "Version must be greater than or equal to 2"
+          }
+
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "tag_name=$($Version.ToString())"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### :rocket: Creating release $tag :rocket:" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check release
+        id: release
+        run: |
+          release_details=$(
+            curl -L -s --fail-with-body \
+              -X GET \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              --url https://api.github.com/repos/${{ github.repository }}/releases/tags/$version
+          )
+          release_id=$(echo "$release_details" | jq .id)
+          pre_release=$(echo "$release_details" | jq .prerelease)
+
+          if [ "$pre_release" == "false" ]; then
+            echo "Can not modify Full Release"
+            echo "${{ env.failure_ico }} Can not modify Full Release ($version) ${{ env.failure_ico }}" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          echo "release_id=$release_id" >> $GITHUB_OUTPUT
