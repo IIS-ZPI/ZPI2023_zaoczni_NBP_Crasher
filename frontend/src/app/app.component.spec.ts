@@ -2,6 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { By } from '@angular/platform-browser';
 import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
+import { DxSelectBoxComponent } from 'devextreme-angular';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -27,8 +28,10 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.componentInstance;
 
-    const startDateBox = fixture.debugElement.query(By.directive(DxDateBoxComponent)).componentInstance;
-    const endDateBox = fixture.debugElement.query(By.directive(DxDateBoxComponent)).componentInstance;
+    const dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
+
+    const startDateBox = dateBoxes[0].componentInstance;
+    const endDateBox = dateBoxes[1].componentInstance;
 
     expect(app.isCustomTimeFrame).toEqual(false);
     expect(startDateBox.disabled).toBe(true);
