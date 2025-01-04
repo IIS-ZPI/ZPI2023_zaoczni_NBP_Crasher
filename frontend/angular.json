@@ -30,9 +30,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/devextreme/scss/bundles/dx.material.purple.light.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -90,9 +94,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/devextreme/scss/bundles/dx.material.purple.light.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+            ]
           }
         }
       }
