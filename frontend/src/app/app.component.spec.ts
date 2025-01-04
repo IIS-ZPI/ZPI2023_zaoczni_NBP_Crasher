@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 
 import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
 import { DxSelectBoxComponent, } from 'devextreme-angular/ui/select-box';
-import { DxTabsComponent } from 'devextreme-angular/ui/tabs';
 import { timeFrames } from './app.config';
+import { availableCurrencies } from './app.model';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -97,6 +97,18 @@ describe('AppComponent', () => {
 
     expect(startDateBox.value).not.toBe(undefined);
     expect(endDateBox.value).not.toBe(undefined);
+  });
+
+  it('should refresh data when currency from is changed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+    
+    spyOn(app, 'refreshData').and.callThrough();
+
+    app.onCurrencyFromSelectionChanged();
+
+    expect(app.refreshData).toHaveBeenCalled();
   });
 
 });
