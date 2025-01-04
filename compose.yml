@@ -3,8 +3,8 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
-    image: zpi/frontend
-    container_name: ZPI_Frontend
+    image: nbp_crasher/frontend
+    container_name: NBP_Crasher_Frontend
     hostname: Frontend
     restart: unless-stopped
     ports:
