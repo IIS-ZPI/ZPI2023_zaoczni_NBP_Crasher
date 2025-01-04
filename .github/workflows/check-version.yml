@@ -61,14 +61,14 @@ jobs:
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              --url https://api.github.com/repos/${{ github.repository }}/releases/tags/$version
+              --url https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.file.outputs.tag_name }}
           )
           release_id=$(echo "$release_details" | jq .id)
           pre_release=$(echo "$release_details" | jq .prerelease)
 
           if [ "$pre_release" == "false" ]; then
             echo "Can not modify Full Release"
-            echo "${{ env.failure_ico }} Can not modify Full Release ($version) ${{ env.failure_ico }}" >> $GITHUB_STEP_SUMMARY
+            echo "${{ env.failure_ico }} Can not modify Full Release (${{ steps.file.outputs.tag_name }}) ${{ env.failure_ico }}" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
 
