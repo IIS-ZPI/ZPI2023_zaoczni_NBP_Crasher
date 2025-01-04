@@ -110,7 +110,7 @@ export const tempData: Data = {
   session: {
     increasing_sessions: 3,
     decreasing_sessions: 2,
-    no_change_sessions: 4
+    no_change_sessions: 2
   },
   changes_distribution: [
     { rangeBegin: '-∞', rangeEnd: '-0.0116', value: 1 },
