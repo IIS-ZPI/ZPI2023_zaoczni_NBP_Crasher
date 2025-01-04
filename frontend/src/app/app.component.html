@@ -1,4 +1,4 @@
-<div class="vw-100 vh-100 bg-light p-5">
+<div class="vw-100 min-vh-100 bg-light p-5">
   <h1 class="fw-bold text-uppercase text-center">{{ appName }}</h1>
   <div class="row g-4 gx-5 mt-4">
     <div class="col-6">
@@ -47,7 +47,7 @@
           </dx-date-box>
         </div>
 
-        <div class="col-12 rounded bg-body p-4 pb-0">
+        <div class="col-12 rounded bg-body p-4 pb-5 pb-0">
           <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
             <dxo-title text="Changes distribution"></dxo-title>
             <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
@@ -59,6 +59,49 @@
             [selectedIndex]="selectedTimeFrameIndex"
             (selectedIndexChange)="onTimeFrameIndexSelectionChanged($event)">
           </dx-tabs>
+        </div>
+
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Median</h6>
+            <h1 class="text-primary">{{ data.statistics.median }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Mode</h6>
+            <h1 class="text-primary">{{ maxMode }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Standard deviation</h6>
+            <h1 class="text-primary">{{ data.statistics.standard_deviation }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Coefficient of variation</h6>
+            <h1 class="text-primary">{{ data.statistics.variation_coefficient }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Increasing sessions</h6>
+            <h1 class="text-primary">{{ data.session.increasing_sessions }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>Decreasing sessions</h6>
+            <h1 class="text-primary">{{ data.session.decreasing_sessions }}</h1>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="bg-body p-4 pb-5 text-center rounded">
+            <h6>No-change sessions</h6>
+            <h1 class="text-primary">{{ data.session.no_change_sessions }}</h1>
+          </div>
         </div>
       </div>
     </div>

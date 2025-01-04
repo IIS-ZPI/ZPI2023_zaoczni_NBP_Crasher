@@ -31,6 +31,10 @@ export class AppComponent {
     return timeFrames[this.selectedTimeFrameIndex].badge === 'CUSTOM';
   }
 
+  get maxMode(): number {
+    return Math.max(...Object.values(this.data.statistics.mode));
+  }
+
   currencyFrom: Currency = defaultCurrencyFrom;
   currencyTo: Currency = defaultCurrencyTo;
 
@@ -55,6 +59,7 @@ export class AppComponent {
 
   onCurrencyToSelectionChanged(): void {
     this.refreshData();
+    this.maxMode
   }
 
   onDateFromValueChanged(): void {
