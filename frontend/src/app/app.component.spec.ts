@@ -1,5 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { By } from '@angular/platform-browser';
+import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -14,16 +16,23 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'frontend' title`, () => {
+  it(`should have the 'NBP Crasher' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+    expect(app.appName).toEqual('NBP Crasher');
   });
 
-  it('should render title', () => {
+  it('should have disabled date fields on first page enter', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
+    const app = fixture.componentInstance;
+
+    const startDateBox = fixture.debugElement.query(By.directive(DxDateBoxComponent)).componentInstance;
+    const endDateBox = fixture.debugElement.query(By.directive(DxDateBoxComponent)).componentInstance;
+
+    expect(app.isCustomTimeFrame).toEqual(false);
+    expect(startDateBox.disabled).toBe(true);
+    expect(endDateBox.disabled).toBe(true);
   });
+
 });
