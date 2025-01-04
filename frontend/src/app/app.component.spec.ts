@@ -49,14 +49,18 @@ describe('AppComponent', () => {
 
     app.onTimeFrameIndexSelectionChanged(timeFrames.findIndex(tf => tf.badge === 'CUSTOM'));
     fixture.detectChanges();
-    
+
     const dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
     const startDateBox = dateBoxes[0].componentInstance;
     const endDateBox = dateBoxes[1].componentInstance;
 
     expect(app.isCustomTimeFrame).toEqual(true);
+
     expect(startDateBox.disabled).toBe(false);
     expect(endDateBox.disabled).toBe(false);
+
+    expect(startDateBox.value).toBe('undefined');
+    expect(endDateBox.value).toBe(undefined);
   });
 
 });
