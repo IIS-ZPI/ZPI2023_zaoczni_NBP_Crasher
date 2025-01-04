@@ -1,6 +1,6 @@
 <div class="vw-100 vh-100 bg-light p-5">
   <h1 class="fw-bold text-uppercase text-center">{{ appName }}</h1>
-  <div class="row g-4 mt-4">
+  <div class="row g-4 gx-5 mt-4">
     <div class="col-6">
       <div class="row g-4">
         <div class="col">
@@ -62,6 +62,16 @@
         </div>
       </div>
     </div>
-    <div class="col-6"></div>
+    <div class="col-6">
+      <div class="p-4 bg-body rounded">
+        <dx-data-grid
+          class="p-4 py-0"
+          [dataSource]="data.changes_distribution">
+          <dxi-column caption="Range from" dataField="rangeBegin"></dxi-column>
+          <dxi-column caption="Range to" dataField="rangeEnd"></dxi-column>
+          <dxi-column caption="Number of changes" dataField="value"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
   </div>
 </div>
