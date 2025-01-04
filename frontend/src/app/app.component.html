@@ -48,10 +48,10 @@
         </div>
 
         <div class="col-12 rounded bg-body p-4 pb-0">
-          <dx-chart [dataSource]="data.changes_distribution" class="w-100">
+          <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
             <dxo-title text="Changes distribution"></dxo-title>
-            <dxo-common-series-settings argumentField="value" valueField="value" type="bar"></dxo-common-series-settings>
-            <dxo-legend position="top" [visible]="true"></dxo-legend>
+            <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
+            <dxo-legend position="top" verticalAlignment="top" horizontalAlignment="center" [visible]="true"></dxo-legend>
           </dx-chart>
           <dx-tabs
             class="w-auto mx-auto mt-2"
