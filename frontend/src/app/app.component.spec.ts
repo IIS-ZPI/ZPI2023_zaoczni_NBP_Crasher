@@ -123,4 +123,16 @@ describe('AppComponent', () => {
     expect(app.refreshData).toHaveBeenCalled();
   });
 
+  it('should refresh data when date from is changed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+
+    spyOn(app, 'refreshData').and.callThrough();
+
+    app.onDateFromValueChanged();
+
+    expect(app.refreshData).toHaveBeenCalled();
+  });
+
 });
