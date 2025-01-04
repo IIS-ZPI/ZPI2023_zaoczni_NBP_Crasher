@@ -6,3 +6,5 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes)]
 };
+
+export const appTitle: string = 'NBP Crasher';
