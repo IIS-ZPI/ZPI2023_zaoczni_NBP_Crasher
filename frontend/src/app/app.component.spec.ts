@@ -103,10 +103,22 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const app = fixture.componentInstance;
-    
+
     spyOn(app, 'refreshData').and.callThrough();
 
     app.onCurrencyFromSelectionChanged();
+
+    expect(app.refreshData).toHaveBeenCalled();
+  });
+
+  it('should refresh data when currency to is changed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+    
+    spyOn(app, 'refreshData').and.callThrough();
+
+    app.onCurrencyToSelectionChanged();
 
     expect(app.refreshData).toHaveBeenCalled();
   });
