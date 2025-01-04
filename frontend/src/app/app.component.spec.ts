@@ -59,8 +59,44 @@ describe('AppComponent', () => {
     expect(startDateBox.disabled).toBe(false);
     expect(endDateBox.disabled).toBe(false);
 
-    expect(startDateBox.value).toBe('undefined');
+    expect(startDateBox.value).toBe(undefined);
     expect(endDateBox.value).toBe(undefined);
+  });
+
+  it('should have disable date fields when custom time frame is selected and then other is selected', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+
+    app.onTimeFrameIndexSelectionChanged(timeFrames.findIndex(tf => tf.badge === 'CUSTOM'));
+    fixture.detectChanges();
+
+    let dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
+    let startDateBox = dateBoxes[0].componentInstance;
+    let endDateBox = dateBoxes[1].componentInstance;
+
+    expect(app.isCustomTimeFrame).toEqual(true);
+
+    expect(startDateBox.disabled).toBe(false);
+    expect(endDateBox.disabled).toBe(false);
+
+    expect(startDateBox.value).toBe(undefined);
+    expect(endDateBox.value).toBe(undefined);
+
+    app.onTimeFrameIndexSelectionChanged(timeFrames.findIndex(tf => tf.badge === '2W'));
+    fixture.detectChanges();
+
+    dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
+    startDateBox = dateBoxes[0].componentInstance;
+    endDateBox = dateBoxes[1].componentInstance;
+
+    expect(app.isCustomTimeFrame).toEqual(false);
+
+    expect(startDateBox.disabled).toBe(true);
+    expect(endDateBox.disabled).toBe(true);
+
+    expect(startDateBox.value).not.toBe(undefined);
+    expect(endDateBox.value).not.toBe(undefined);
   });
 
 });
