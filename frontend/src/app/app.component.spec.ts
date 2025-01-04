@@ -47,10 +47,9 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.componentInstance;
 
-    const tabs = fixture.debugElement.query(By.directive(DxTabsComponent)).componentInstance as DxTabsComponent;
     app.onTimeFrameIndexSelectionChanged(timeFrames.findIndex(tf => tf.badge === 'CUSTOM'));
-
     fixture.detectChanges();
+    
     const dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
     const startDateBox = dateBoxes[0].componentInstance;
     const endDateBox = dateBoxes[1].componentInstance;
