@@ -1,8 +1,12 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+
 import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
-import { DxSelectBoxComponent } from 'devextreme-angular';
+import { DxSelectBoxComponent, } from 'devextreme-angular/ui/select-box';
+import { DxTabsComponent } from 'devextreme-angular/ui/tabs';
+import { timeFrames } from './app.config';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -36,6 +40,24 @@ describe('AppComponent', () => {
     expect(app.isCustomTimeFrame).toEqual(false);
     expect(startDateBox.disabled).toBe(true);
     expect(endDateBox.disabled).toBe(true);
+  });
+
+  it('should have enable date fields when custom time frame is selected', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+
+    const tabs = fixture.debugElement.query(By.directive(DxTabsComponent)).componentInstance as DxTabsComponent;
+    app.onTimeFrameIndexSelectionChanged(timeFrames.findIndex(tf => tf.badge === 'CUSTOM'));
+
+    fixture.detectChanges();
+    const dateBoxes = fixture.debugElement.queryAll(By.directive(DxDateBoxComponent));
+    const startDateBox = dateBoxes[0].componentInstance;
+    const endDateBox = dateBoxes[1].componentInstance;
+
+    expect(app.isCustomTimeFrame).toEqual(true);
+    expect(startDateBox.disabled).toBe(false);
+    expect(endDateBox.disabled).toBe(false);
   });
 
 });
