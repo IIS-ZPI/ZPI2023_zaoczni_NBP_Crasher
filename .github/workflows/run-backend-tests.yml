@@ -1,11 +1,12 @@
-name: Run Python Test
+name: Backend Tests
+
 
 on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - "**/*.py"
-      - requirements.txt
+      - 'backend/**'
+      - 'Backend/**'
   workflow_dispatch:
 
 env:

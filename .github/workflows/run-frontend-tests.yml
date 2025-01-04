@@ -6,6 +6,8 @@ on:
     types: [opened, synchronize]
     paths:
       - 'frontend/**'
+      - 'Frontend/**'
+  workflow_dispatch:
 
 jobs:
   Tests:
