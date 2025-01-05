@@ -1,6 +1,6 @@
 from numpy import std, inf
 import pandas as pd
-
+from json_to_dataframe import json_to_data_frame
 
 def calculate_statistical_measures(data: pd.Series):
     """
@@ -141,3 +141,43 @@ def create_dynamic_ranges(data, n_ranges=14):
         labels.append(label)
 
     return boundaries, labels
+
+def calculate_statistics(first_currency: dict, second_currency: dict = None):
+    """
+        Calculate comprehensive statistics for one or two currencies.
+
+        Args:
+            first_currency: First currency data
+            second_currency (optional): Second currency data for rate calculation
+
+        Returns:
+            dict: Dictionary containing:
+                - statistics: Statistical measures
+                - sessions: Session counts
+                - changes_distribution: Distribution of rate changes
+
+        Raises:
+            ValueError: If first_currency is None
+            KeyError: If required data structure is invalid
+        """
+    if first_currency is None:
+        raise ValueError("first_currency cannot be None")
+    try:
+        first_currency_dataframe = json_to_data_frame(first_currency)["mid"]
+        if second_currency is not None:
+            second_currency_dataframe = json_to_data_frame(second_currency)["mid"]
+            rate = (first_currency_dataframe / second_currency_dataframe).round(4)
+        else:
+            rate = first_currency_dataframe
+    except KeyError as e:
+        raise e
+
+    statistical_measures = calculate_statistical_measures(rate)
+    sessions = count_session(rate)
+    changes_distribution = calculate_distribution(rate)
+
+    return {
+        "statistics": statistical_measures,
+        "sessions": sessions,
+        "changes_distribution": changes_distribution
+    }
