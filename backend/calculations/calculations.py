@@ -34,3 +34,41 @@ def calculate_statistical_measures(data: pd.Series):
         "variation_coefficient": round(variation_coefficient, 4),
         "median": round(median, 4)
     }
+
+def count_session(data: pd.Series):
+    """
+        Count the number of increasing, decreasing and unchanged sessions in sequential data.
+
+        Args:
+            data (pd.DataFrame): Input DataFrame column with numerical values
+
+        Returns:
+            dict: Dictionary containing counts of:
+                - increasing_sessions: Number of times value increased
+                - decreasing_sessions: Number of times value decreased
+                - no_change_sessions: Number of times value remained the same
+        """
+
+    sessions_count = {
+        "increasing_sessions": 0,
+        "decreasing_sessions": 0,
+        "no_change_sessions": 0
+    }
+
+    values_column = data
+    prev_reading = None
+    for value in values_column:
+        if prev_reading is None:
+            prev_reading = value
+            continue
+
+        if value > prev_reading:
+            sessions_count["increasing_sessions"] += 1
+        elif value < prev_reading:
+            sessions_count["decreasing_sessions"] += 1
+        else:
+            sessions_count["no_change_sessions"] += 1
+
+        prev_reading = value
+
+    return sessions_count
