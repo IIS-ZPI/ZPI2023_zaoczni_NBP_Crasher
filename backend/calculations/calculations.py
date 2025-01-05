@@ -11,11 +11,14 @@ def calculate_statistical_measures(data: pd.Series):
            data (set): Input set with numerical values
 
        Returns:
-           dict: Dictionary containing:
-               - mode: Dictionary with mode values and their frequencies
-               - standard_deviation: Standard deviation rounded to 4 decimal places
-               - variation_coefficient: Coefficient of variation as percentage, rounded to 4 decimal places
-               - median: Median value rounded to 4 decimal places
+            dict: Dictionary containing:
+                - mode: Dictionary with mode values and their frequencies
+                - standard_deviation: Standard deviation rounded to 4 decimal places
+                - variation_coefficient: Coefficient of variation as percentage, rounded to 4 decimal places
+                - median: Median value rounded to 4 decimal places
+
+       Raises:
+           ValueError: If data is None
        """
     if data is None:
         raise ValueError("data cannot be None")
@@ -51,6 +54,9 @@ def count_session(data: pd.Series):
                 - increasing_sessions: Number of times value increased
                 - decreasing_sessions: Number of times value decreased
                 - no_change_sessions: Number of times value remained the same
+
+        Raises:
+            ValueError: If data is None
         """
     if data is None:
         raise ValueError("data cannot be None")
@@ -92,6 +98,9 @@ def calculate_distribution(currency_rate: pd.Series):
             - rangeBegin: Start of the range interval
             - rangeEnd: End of the range interval
             - value: Count of values in this range
+
+    Raises:
+        ValueError: If currency_rate is None
     """
     if currency_rate is None:
         raise ValueError("currency_rate cannot be None")
@@ -124,6 +133,9 @@ def create_dynamic_ranges(data, n_ranges=14):
             tuple: (boundaries, labels)
                 - boundaries: List of range boundary values
                 - labels: List of formatted range labels
+
+        Raises:
+            ValueError: If data is None
     """
     if data is None:
         raise ValueError("data cannot be None")
