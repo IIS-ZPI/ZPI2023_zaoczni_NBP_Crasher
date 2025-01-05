@@ -33,7 +33,7 @@ jobs:
       - name: Lint with black
         run: |
           # Code formatting with black, check every python file in the src directory 
-          black --check --diff src
+          black --check --diff backend
 
   Pytest:
     runs-on: ubuntu-latest
