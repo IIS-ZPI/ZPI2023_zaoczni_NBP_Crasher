@@ -2,6 +2,7 @@ from numpy import std, inf
 import pandas as pd
 from json_to_dataframe import json_to_data_frame
 
+
 def calculate_statistical_measures(data: pd.Series):
     """
        Calculate basic statistical measures for a given DataFrame column.
@@ -16,6 +17,8 @@ def calculate_statistical_measures(data: pd.Series):
                - variation_coefficient: Coefficient of variation as percentage, rounded to 4 decimal places
                - median: Median value rounded to 4 decimal places
        """
+    if data is None:
+        raise ValueError("data cannot be None")
 
     values_column = data.sort_values()
 
@@ -49,6 +52,8 @@ def count_session(data: pd.Series):
                 - decreasing_sessions: Number of times value decreased
                 - no_change_sessions: Number of times value remained the same
         """
+    if data is None:
+        raise ValueError("data cannot be None")
 
     sessions_count = {
         "increasing_sessions": 0,
@@ -88,6 +93,9 @@ def calculate_distribution(currency_rate: pd.Series):
             - rangeEnd: End of the range interval
             - value: Count of values in this range
     """
+    if currency_rate is None:
+        raise ValueError("currency_rate cannot be None")
+
     changes = currency_rate.diff()
 
     boundaries, labels = create_dynamic_ranges(changes)
@@ -103,6 +111,7 @@ def calculate_distribution(currency_rate: pd.Series):
 
     return distribution_list
 
+
 def create_dynamic_ranges(data, n_ranges=14):
     """
         Create dynamic range boundaries and labels for data distribution.
@@ -116,6 +125,9 @@ def create_dynamic_ranges(data, n_ranges=14):
                 - boundaries: List of range boundary values
                 - labels: List of formatted range labels
     """
+    if data is None:
+        raise ValueError("data cannot be None")
+
     min_val = data.min()
     max_val = data.max()
 
@@ -141,6 +153,7 @@ def create_dynamic_ranges(data, n_ranges=14):
         labels.append(label)
 
     return boundaries, labels
+
 
 def calculate_statistics(first_currency: dict, second_currency: dict = None):
     """
