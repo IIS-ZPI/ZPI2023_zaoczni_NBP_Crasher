@@ -5,21 +5,21 @@ from json_to_dataframe import json_to_data_frame
 
 def calculate_statistical_measures(data: pd.Series):
     """
-       Calculate basic statistical measures for a given DataFrame column.
+    Calculate basic statistical measures for a given DataFrame column.
 
-       Args:
-           data (set): Input set with numerical values
+    Args:
+        data (set): Input set with numerical values
 
-       Returns:
-            dict: Dictionary containing:
-                - mode: Dictionary with mode values and their frequencies
-                - standard_deviation: Standard deviation rounded to 4 decimal places
-                - variation_coefficient: Coefficient of variation as percentage, rounded to 4 decimal places
-                - median: Median value rounded to 4 decimal places
+    Returns:
+         dict: Dictionary containing:
+             - mode: Dictionary with mode values and their frequencies
+             - standard_deviation: Standard deviation rounded to 4 decimal places
+             - variation_coefficient: Coefficient of variation as percentage, rounded to 4 decimal places
+             - median: Median value rounded to 4 decimal places
 
-       Raises:
-           ValueError: If data is None
-       """
+    Raises:
+        ValueError: If data is None
+    """
     if data is None:
         raise ValueError("data cannot be None")
 
@@ -38,33 +38,33 @@ def calculate_statistical_measures(data: pd.Series):
         "mode": mode,
         "standard_deviation": round(standard_deviation, 4),
         "variation_coefficient": round(variation_coefficient, 4),
-        "median": round(median, 4)
+        "median": round(median, 4),
     }
 
 
 def count_session(data: pd.Series):
     """
-        Count the number of increasing, decreasing and unchanged sessions in sequential data.
+    Count the number of increasing, decreasing and unchanged sessions in sequential data.
 
-        Args:
-            data (pd.DataFrame): Input DataFrame column with numerical values
+    Args:
+        data (pd.DataFrame): Input DataFrame column with numerical values
 
-        Returns:
-            dict: Dictionary containing counts of:
-                - increasing_sessions: Number of times value increased
-                - decreasing_sessions: Number of times value decreased
-                - no_change_sessions: Number of times value remained the same
+    Returns:
+        dict: Dictionary containing counts of:
+            - increasing_sessions: Number of times value increased
+            - decreasing_sessions: Number of times value decreased
+            - no_change_sessions: Number of times value remained the same
 
-        Raises:
-            ValueError: If data is None
-        """
+    Raises:
+        ValueError: If data is None
+    """
     if data is None:
         raise ValueError("data cannot be None")
 
     sessions_count = {
         "increasing_sessions": 0,
         "decreasing_sessions": 0,
-        "no_change_sessions": 0
+        "no_change_sessions": 0,
     }
 
     values_column = data
@@ -112,9 +112,11 @@ def calculate_distribution(currency_rate: pd.Series):
 
     range_counts = categories.value_counts().sort_index().to_dict()
     distribution_list = [
-        {"rangeBegin": index.split(";")[0],
-         "rangeEnd": index.split(";")[1],
-         "value": int(value)}
+        {
+            "rangeBegin": index.split(";")[0],
+            "rangeEnd": index.split(";")[1],
+            "value": int(value),
+        }
         for index, value in range_counts.items()
     ]
 
@@ -123,19 +125,19 @@ def calculate_distribution(currency_rate: pd.Series):
 
 def create_dynamic_ranges(data, n_ranges=14):
     """
-        Create dynamic range boundaries and labels for data distribution.
+    Create dynamic range boundaries and labels for data distribution.
 
-        Args:
-            data (pd.Series): Input data to create ranges for
-            n_ranges (int, optional): Number of ranges to create. Defaults to 14.
+    Args:
+        data (pd.Series): Input data to create ranges for
+        n_ranges (int, optional): Number of ranges to create. Defaults to 14.
 
-        Returns:
-            tuple: (boundaries, labels)
-                - boundaries: List of range boundary values
-                - labels: List of formatted range labels
+    Returns:
+        tuple: (boundaries, labels)
+            - boundaries: List of range boundary values
+            - labels: List of formatted range labels
 
-        Raises:
-            ValueError: If data is None
+    Raises:
+        ValueError: If data is None
     """
     if data is None:
         raise ValueError("data cannot be None")
@@ -169,22 +171,22 @@ def create_dynamic_ranges(data, n_ranges=14):
 
 def calculate_statistics(first_currency: dict, second_currency: dict = None):
     """
-        Calculate comprehensive statistics for one or two currencies.
+    Calculate comprehensive statistics for one or two currencies.
 
-        Args:
-            first_currency: First currency data
-            second_currency (optional): Second currency data for rate calculation
+    Args:
+        first_currency: First currency data
+        second_currency (optional): Second currency data for rate calculation
 
-        Returns:
-            dict: Dictionary containing:
-                - statistics: Statistical measures
-                - sessions: Session counts
-                - changes_distribution: Distribution of rate changes
+    Returns:
+        dict: Dictionary containing:
+            - statistics: Statistical measures
+            - sessions: Session counts
+            - changes_distribution: Distribution of rate changes
 
-        Raises:
-            ValueError: If first_currency is None
-            KeyError: If required data structure is invalid
-        """
+    Raises:
+        ValueError: If first_currency is None
+        KeyError: If required data structure is invalid
+    """
     if first_currency is None:
         raise ValueError("first_currency cannot be None")
     try:
@@ -204,5 +206,5 @@ def calculate_statistics(first_currency: dict, second_currency: dict = None):
     return {
         "statistics": statistical_measures,
         "sessions": sessions,
-        "changes_distribution": changes_distribution
+        "changes_distribution": changes_distribution,
     }
