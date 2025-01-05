@@ -1,4 +1,4 @@
-from numpy import std
+from numpy import std, inf
 import pandas as pd
 
 
@@ -34,6 +34,7 @@ def calculate_statistical_measures(data: pd.Series):
         "variation_coefficient": round(variation_coefficient, 4),
         "median": round(median, 4)
     }
+
 
 def count_session(data: pd.Series):
     """
@@ -72,3 +73,71 @@ def count_session(data: pd.Series):
         prev_reading = value
 
     return sessions_count
+
+
+def calculate_distribution(currency_rate: pd.Series):
+    """
+    Calculate the distribution of absolute changes in currency rates.
+
+    Args:
+        currency_rate (pd.Series): Series containing currency rate values
+
+    Returns:
+        list: List of dictionaries containing:
+            - rangeBegin: Start of the range interval
+            - rangeEnd: End of the range interval
+            - value: Count of values in this range
+    """
+    changes = currency_rate.diff()
+
+    boundaries, labels = create_dynamic_ranges(changes)
+    categories = pd.cut(changes, bins=boundaries, labels=labels, right=True)
+
+    range_counts = categories.value_counts().sort_index().to_dict()
+    distribution_list = [
+        {"rangeBegin": index.split(";")[0],
+         "rangeEnd": index.split(";")[1],
+         "value": int(value)}
+        for index, value in range_counts.items()
+    ]
+
+    return distribution_list
+
+def create_dynamic_ranges(data, n_ranges=14):
+    """
+        Create dynamic range boundaries and labels for data distribution.
+
+        Args:
+            data (pd.Series): Input data to create ranges for
+            n_ranges (int, optional): Number of ranges to create. Defaults to 14.
+
+        Returns:
+            tuple: (boundaries, labels)
+                - boundaries: List of range boundary values
+                - labels: List of formatted range labels
+    """
+    min_val = data.min()
+    max_val = data.max()
+
+    step = (max_val - min_val) / (n_ranges - 1)
+
+    boundaries = [-inf]
+    current = min_val
+
+    for _ in range(n_ranges - 1):
+        boundaries.append(current)
+        current += step
+
+    boundaries.append(inf)
+
+    labels = []
+    for i in range(len(boundaries) - 1):
+        if i == 0:
+            label = f"-∞;{boundaries[i + 1]:.4f}"
+        elif i == len(boundaries) - 2:
+            label = f"{boundaries[i]:.4f};+∞"
+        else:
+            label = f"{boundaries[i]:.4f};{boundaries[i + 1]:.4f}"
+        labels.append(label)
+
+    return boundaries, labels
