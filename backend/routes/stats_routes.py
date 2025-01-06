@@ -59,7 +59,7 @@ stats_routes = APIRouter(tags=["Statistics router"])
                             "no_change_sessions": 0,
                         },
                         "changes_distribution": [
-                            {"rangeBegin": "-∞", "rangeEnd": "-0.0116", "value": 1},
+                            {"rangeBegin": "-inf", "rangeEnd": "-0.0116", "value": 1},
                             {
                                 "rangeBegin": "-0.0116",
                                 "rangeEnd": "-0.0090",
@@ -92,7 +92,7 @@ stats_routes = APIRouter(tags=["Statistics router"])
                             {"rangeBegin": "0.0118", "rangeEnd": "0.0145", "value": 3},
                             {"rangeBegin": "0.0145", "rangeEnd": "0.0171", "value": 2},
                             {"rangeBegin": "0.0171", "rangeEnd": "0.0197", "value": 1},
-                            {"rangeBegin": "0.0197", "rangeEnd": "+∞", "value": 1},
+                            {"rangeBegin": "0.0197", "rangeEnd": "+inf", "value": 1},
                         ],
                     }
                 }
