@@ -4,10 +4,7 @@ import uvicorn
 
 from routes.stats_routes import stats_routes
 
-origins = [
-    "http://localhost",
-    "http://localhost:4200"
-]
+origins = ["http://localhost", "http://localhost:4200"]
 
 app = FastAPI()
 app.add_middleware(
