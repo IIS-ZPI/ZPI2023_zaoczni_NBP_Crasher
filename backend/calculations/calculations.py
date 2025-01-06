@@ -164,9 +164,9 @@ def create_dynamic_ranges(data, n_ranges=14):
     labels = []
     for i in range(len(boundaries) - 1):
         if i == 0:
-            label = f"-∞;{boundaries[i + 1]:.4f}"
+            label = f"-inf;{boundaries[i + 1]:.4f}"
         elif i == len(boundaries) - 2:
-            label = f"{boundaries[i]:.4f};+∞"
+            label = f"{boundaries[i]:.4f};+inf"
         else:
             label = f"{boundaries[i]:.4f};{boundaries[i + 1]:.4f}"
         labels.append(label)

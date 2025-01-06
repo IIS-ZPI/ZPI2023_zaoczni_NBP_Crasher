@@ -174,7 +174,7 @@ class TestCalculateDistribution(unittest.TestCase):
         result = calculate_distribution(currency_rate)
 
         expected_result = [
-            {"rangeBegin": "-∞", "rangeEnd": "-0.1000", "value": 1},
+            {"rangeBegin": "-inf", "rangeEnd": "-0.1000", "value": 1},
             {"rangeBegin": "-0.1000", "rangeEnd": "-0.0692", "value": 0},
             {"rangeBegin": "-0.0692", "rangeEnd": "-0.0385", "value": 0},
             {"rangeBegin": "-0.0385", "rangeEnd": "-0.0077", "value": 0},
@@ -187,7 +187,7 @@ class TestCalculateDistribution(unittest.TestCase):
             {"rangeBegin": "0.1769", "rangeEnd": "0.2077", "value": 1},
             {"rangeBegin": "0.2077", "rangeEnd": "0.2385", "value": 0},
             {"rangeBegin": "0.2385", "rangeEnd": "0.2692", "value": 0},
-            {"rangeBegin": "0.2692", "rangeEnd": "+∞", "value": 2},
+            {"rangeBegin": "0.2692", "rangeEnd": "+inf", "value": 2},
         ]
 
         self.assertEqual(result, expected_result)
@@ -206,7 +206,7 @@ class TestCalculateDistribution(unittest.TestCase):
         result = calculate_distribution(currency_rate)
 
         expected_result = [
-            {"rangeBegin": "-∞", "rangeEnd": "0.0000", "value": 3},
+            {"rangeBegin": "-inf", "rangeEnd": "0.0000", "value": 3},
             {"rangeBegin": "0.0000", "rangeEnd": "0.5000", "value": 0},
             {"rangeBegin": "0.5000", "rangeEnd": "1.0000", "value": 0},
             {"rangeBegin": "1.0000", "rangeEnd": "1.5000", "value": 0},
@@ -219,7 +219,7 @@ class TestCalculateDistribution(unittest.TestCase):
             {"rangeBegin": "4.5000", "rangeEnd": "5.0000", "value": 0},
             {"rangeBegin": "5.0000", "rangeEnd": "5.5000", "value": 0},
             {"rangeBegin": "5.5000", "rangeEnd": "6.0000", "value": 0},
-            {"rangeBegin": "6.0000", "rangeEnd": "+∞", "value": 0},
+            {"rangeBegin": "6.0000", "rangeEnd": "+inf", "value": 0},
         ]
 
         self.assertEqual(result, expected_result)
@@ -229,7 +229,7 @@ class TestCalculateDistribution(unittest.TestCase):
         result = calculate_distribution(currency_rate)
 
         expected_result = [
-            {"rangeBegin": "-∞", "rangeEnd": "-0.5000", "value": 3},
+            {"rangeBegin": "-inf", "rangeEnd": "-0.5000", "value": 3},
             {"rangeBegin": "-0.5000", "rangeEnd": "0.0000", "value": 0},
             {"rangeBegin": "0.0000", "rangeEnd": "0.5000", "value": 0},
             {"rangeBegin": "0.5000", "rangeEnd": "1.0000", "value": 0},
@@ -242,7 +242,7 @@ class TestCalculateDistribution(unittest.TestCase):
             {"rangeBegin": "4.0000", "rangeEnd": "4.5000", "value": 0},
             {"rangeBegin": "4.5000", "rangeEnd": "5.0000", "value": 0},
             {"rangeBegin": "5.0000", "rangeEnd": "5.5000", "value": 0},
-            {"rangeBegin": "5.5000", "rangeEnd": "+∞", "value": 0},
+            {"rangeBegin": "5.5000", "rangeEnd": "+inf", "value": 0},
         ]
 
         self.assertEqual(result, expected_result)
