@@ -1,10 +1,11 @@
 import unittest
 import pandas as pd
-import numpy as np
+from numpy import inf, std
 from backend.calculations.calculations import (
     calculate_statistical_measures,
     count_session,
     calculate_distribution,
+    create_dynamic_ranges,
 )
 
 
@@ -21,10 +22,10 @@ class TestCalculateStatisticalMeasures(unittest.TestCase):
 
         expected_mode = {2: 2}
         expected_median = 2.5
-        expected_standard_deviation = np.std([1, 2, 2, 3, 4, 5], ddof=0)
+        expected_standard_deviation = std([1, 2, 2, 3, 4, 5], ddof=0)
         expected_variation_coefficient = (
-            expected_standard_deviation / expected_median
-        ) * 100
+                                                 expected_standard_deviation / expected_median
+                                         ) * 100
 
         self.assertEqual(result[self.mode_key], expected_mode)
         self.assertAlmostEqual(result[self.median_key], expected_median, places=4)
@@ -71,10 +72,10 @@ class TestCalculateStatisticalMeasures(unittest.TestCase):
 
         expected_mode = {1: 2, 2: 2}
         expected_median = 2
-        expected_standard_deviation = np.std([1, 1, 2, 2, 3], ddof=0)
+        expected_standard_deviation = std([1, 1, 2, 2, 3], ddof=0)
         expected_variation_coefficient = (
-            expected_standard_deviation / expected_median
-        ) * 100
+                                                 expected_standard_deviation / expected_median
+                                         ) * 100
 
         self.assertEqual(result[self.mode_key], expected_mode)
         self.assertAlmostEqual(result[self.median_key], expected_median, places=4)
@@ -247,5 +248,43 @@ class TestCalculateDistribution(unittest.TestCase):
 
         self.assertEqual(result, expected_result)
 
-        if __name__ == "__main__":
-            unittest.main()
+
+class TestCreateDynamicRanges(unittest.TestCase):
+    def test_valid_data(self):
+        data = pd.Series([1, 2, 3, 4, 5])
+        boundaries, labels = create_dynamic_ranges(data, n_ranges=5)
+
+        expected_boundaries = [-inf, 1.0, 2.0, 3.0, 4.0, inf]
+        expected_labels = [
+            "-inf;1.0000",
+            "1.0000;2.0000",
+            "2.0000;3.0000",
+            "3.0000;4.0000",
+            "4.0000;+inf",
+        ]
+
+        self.assertEqual(boundaries, expected_boundaries)
+        self.assertEqual(labels, expected_labels)
+
+    def test_single_value_data(self):
+        data = pd.Series([5])
+        boundaries, labels = create_dynamic_ranges(data, n_ranges=3)
+
+        expected_boundaries = [-inf, 5.0, 10.0, inf]
+        expected_labels = ["-inf;5.0000", "5.0000;10.0000", "10.0000;+inf"]
+
+        self.assertEqual(boundaries, expected_boundaries)
+        self.assertEqual(labels, expected_labels)
+
+    def test_empty_data(self):
+        data = pd.Series([])
+        with self.assertRaises(ValueError):
+            create_dynamic_ranges(data)
+
+    def test_none_data(self):
+        with self.assertRaises(ValueError):
+            create_dynamic_ranges(None)
+
+
+if __name__ == "__main__":
+    unittest.main()
