@@ -1,0 +1,11 @@
+services:
+  Frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: nbp_crasher/frontend
+    container_name: NBP_Crasher_Frontend
+    hostname: Frontend
+    restart: unless-stopped
+    ports:
+      - 80:80
