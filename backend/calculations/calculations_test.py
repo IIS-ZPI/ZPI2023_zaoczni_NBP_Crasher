@@ -24,8 +24,8 @@ class TestCalculateStatisticalMeasures(unittest.TestCase):
         expected_median = 2.5
         expected_standard_deviation = std([1, 2, 2, 3, 4, 5], ddof=0)
         expected_variation_coefficient = (
-                                                 expected_standard_deviation / expected_median
-                                         ) * 100
+            expected_standard_deviation / expected_median
+        ) * 100
 
         self.assertEqual(result[self.mode_key], expected_mode)
         self.assertAlmostEqual(result[self.median_key], expected_median, places=4)
@@ -74,8 +74,8 @@ class TestCalculateStatisticalMeasures(unittest.TestCase):
         expected_median = 2
         expected_standard_deviation = std([1, 1, 2, 2, 3], ddof=0)
         expected_variation_coefficient = (
-                                                 expected_standard_deviation / expected_median
-                                         ) * 100
+            expected_standard_deviation / expected_median
+        ) * 100
 
         self.assertEqual(result[self.mode_key], expected_mode)
         self.assertAlmostEqual(result[self.median_key], expected_median, places=4)
