@@ -1,9 +1,10 @@
 from time import strptime
 from fastapi import APIRouter, Query, HTTPException
 from datetime import datetime, timedelta
-import requests
+
 
 from backend.calculations.calculations import calculate_statistics
+from backend.requester import get_currency_rates
 
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"
@@ -131,9 +132,9 @@ async def get_stats(
         raise HTTPException(status_code=400, detail="date_not_supported")
 
     try:
-        first_currency_data = get_currency_rates(first_currency, date_from, date_end)
+        first_currency_data = await get_currency_rates(first_currency, date_from, date_end)
         if second_currency != "":
-            second_currency_data = get_currency_rates(
+            second_currency_data = await get_currency_rates(
                 second_currency, date_from, date_end
             )
             return calculate_statistics(first_currency_data, second_currency_data)
@@ -141,13 +142,3 @@ async def get_stats(
         return calculate_statistics(first_currency_data)
     except KeyError | ValueError | ConnectionError:
         raise HTTPException(status_code=500, detail="internal_server_error")
-
-
-def get_currency_rates(currency_code: str, date_from: str, date_end: str) -> str:
-    currency_code = currency_code.lower()
-    url = f"https://api.nbp.pl/api/exchangerates/rates/a/{currency_code}/{date_from}/{date_end}/"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise ConnectionError
