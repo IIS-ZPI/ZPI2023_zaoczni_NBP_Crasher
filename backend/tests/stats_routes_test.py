@@ -9,6 +9,7 @@ client = TestClient(app)
 
 API_STATS_URL = "/api/stats/"
 
+
 @patch("backend.routes.stats_routes.get_currency_rates")
 class TestStatsRoutes(unittest.TestCase):
     def test_get_stats_valid_request(self, mock_get_currency_rates):
