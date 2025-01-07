@@ -1,6 +1,6 @@
 from numpy import std, inf
 import pandas as pd
-from backend.calculations.json_to_dataframe import json_to_data_frame
+from json_to_dataframe import json_to_data_frame
 
 
 def calculate_statistical_measures(data: pd.Series):
@@ -20,8 +20,9 @@ def calculate_statistical_measures(data: pd.Series):
     Raises:
         ValueError: If data is None
     """
-    if data is None:
-        raise ValueError("data cannot be None")
+    
+    if data is None or len(data) == 0:
+        raise ValueError("data empty")
 
     values_column = data.sort_values()
 
@@ -58,8 +59,9 @@ def count_session(data: pd.Series):
     Raises:
         ValueError: If data is None
     """
-    if data is None:
-        raise ValueError("data cannot be None")
+
+    if data is None or len(data) == 0:
+        raise ValueError("data empty")
 
     sessions_count = {
         "increasing_sessions": 0,
@@ -102,8 +104,9 @@ def calculate_distribution(currency_rate: pd.Series):
     Raises:
         ValueError: If currency_rate is None
     """
-    if currency_rate is None:
-        raise ValueError("currency_rate cannot be None")
+
+    if currency_rate is None or len(currency_rate) == 0:
+        raise ValueError("currency rate empty")
 
     changes = currency_rate.diff()
 
@@ -139,13 +142,19 @@ def create_dynamic_ranges(data, n_ranges=14):
     Raises:
         ValueError: If data is None
     """
-    if data is None:
-        raise ValueError("data cannot be None")
+    
+    if data is None or len(data) == 0:
+        raise ValueError("data empty")
 
     min_val = data.min()
     max_val = data.max()
 
-    step = (max_val - min_val) / (n_ranges - 1)
+    if min_val != max_val:
+        step = (max_val - min_val) / (n_ranges - 1)
+    elif max_val != 0:
+        step = abs(max_val)
+    else:
+        step = 0.5
 
     boundaries = [-inf]
     current = min_val
@@ -159,9 +168,9 @@ def create_dynamic_ranges(data, n_ranges=14):
     labels = []
     for i in range(len(boundaries) - 1):
         if i == 0:
-            label = f"-∞;{boundaries[i + 1]:.4f}"
+            label = f"-inf;{boundaries[i + 1]:.4f}"
         elif i == len(boundaries) - 2:
-            label = f"{boundaries[i]:.4f};+∞"
+            label = f"{boundaries[i]:.4f};+inf"
         else:
             label = f"{boundaries[i]:.4f};{boundaries[i + 1]:.4f}"
         labels.append(label)
