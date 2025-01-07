@@ -4,9 +4,7 @@ import { By } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
-import { DxSelectBoxComponent, } from 'devextreme-angular/ui/select-box';
 import { timeFrames } from './app.config';
-import { availableCurrencies } from './app.model';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -145,6 +143,15 @@ describe('AppComponent', () => {
     app.onDateToValueChanged();
 
     expect(app.refreshData).toHaveBeenCalled();
+  });
+
+  it('should select 1W time frame (range) on page encounter', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+
+    expect(app.selectedTimeFrameIndex).toEqual(0);
+    expect(app.selectedTimeFrame.badge).toEqual('1W')
   });
 
 });
