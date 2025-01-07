@@ -132,7 +132,9 @@ async def get_stats(
         raise HTTPException(status_code=400, detail="date_not_supported")
 
     try:
-        first_currency_data = await get_currency_rates(first_currency, date_from, date_end)
+        first_currency_data = await get_currency_rates(
+            first_currency, date_from, date_end
+        )
         if second_currency != "":
             second_currency_data = await get_currency_rates(
                 second_currency, date_from, date_end
