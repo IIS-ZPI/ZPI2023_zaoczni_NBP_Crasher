@@ -1,3 +1,4 @@
+import asyncio
 from time import strptime
 from fastapi import APIRouter, Query, HTTPException
 from datetime import datetime, timedelta
@@ -46,15 +47,20 @@ async def get_stats(
         raise HTTPException(status_code=400, detail="date_not_supported")
 
     try:
-        first_currency_data = await get_currency_rates(
+        first_currency_data = asyncio.create_task(get_currency_rates(
             first_currency, date_from, date_end
-        )
+        ))
         if second_currency != "":
-            second_currency_data = await get_currency_rates(
+            second_currency_data = asyncio.create_task(get_currency_rates(
                 second_currency, date_from, date_end
-            )
-            return calculate_statistics(first_currency_data, second_currency_data)
+            ))
 
+            first_currency_data, second_currency_data = await asyncio.gather(
+                first_currency_data, second_currency_data
+            )
+
+            return calculate_statistics(first_currency_data, second_currency_data)
+        first_currency_data = await first_currency_data
         return calculate_statistics(first_currency_data)
     except KeyError | ValueError | ConnectionError:
         raise HTTPException(status_code=500, detail="internal_server_error")
