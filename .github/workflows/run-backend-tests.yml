@@ -30,7 +30,6 @@ jobs:
           python -m pip install black pytest
           if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
 
-
       - name: Lint with black
         run: |
           # Code formatting with black, check every python file in the src directory 
@@ -52,7 +51,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pytest
           if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
-
 
       - name: Test with pytest
         run: |
