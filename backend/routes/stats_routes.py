@@ -9,6 +9,7 @@ from backend.calculations.calculations import calculate_statistics
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"
 
+
 @stats_routes.get(
     "/",
     responses={
