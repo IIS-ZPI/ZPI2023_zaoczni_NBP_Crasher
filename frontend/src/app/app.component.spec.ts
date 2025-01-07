@@ -147,4 +147,13 @@ describe('AppComponent', () => {
     expect(app.refreshData).toHaveBeenCalled();
   });
 
+  it('should select 1W time frame (range) on page encounter', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+
+    expect(app.selectedTimeFrameIndex).toEqual(0);
+    expect(app.selectedTimeFrame.badge).toEqual('1W')
+  });
+
 });
