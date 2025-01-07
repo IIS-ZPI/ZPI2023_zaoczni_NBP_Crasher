@@ -7,7 +7,7 @@ import json
 from backend.calculations.calculations import calculate_statistics
 
 stats_routes = APIRouter(tags=["Statistics router"])
-
+date_format = "%Y-%m-%d"
 
 @stats_routes.get(
     "/",
@@ -109,20 +109,20 @@ async def get_stats(
         default="", description="Second currency 3 characters symbol", max_length=3
     ),
     date_from: str = Query(
-        default=(datetime.today() - timedelta(days=7)).strftime("%Y-%m-%d"),
+        default=(datetime.today() - timedelta(days=7)).strftime(date_format),
         description="Start date from which data will be fetched",
     ),
     date_end: str = Query(
-        default=datetime.today().strftime("%Y-%m-%d"),
+        default=datetime.today().strftime(date_format),
         description="End date for which data will be fetched",
     ),
 ):
-    if strptime(date_from, "%Y-%m-%d") > strptime(date_end, "%Y-%m-%d") or strptime(
-        date_end, "%Y-%m-%d"
-    ) > strptime(datetime.today().strftime("%Y-%m-%d"), "%Y-%m-%d"):
+    if strptime(date_from, date_format) > strptime(date_end, date_format) or strptime(
+        date_end, date_format
+    ) > strptime(datetime.today().strftime(date_format), date_format):
         raise HTTPException(status_code=400, detail="invalid_data")
 
-    if strptime(date_from, "%Y-%m-%d") < strptime("2002-01-02", "%Y-%m-%d"):
+    if strptime(date_from, date_format) < strptime("2002-01-02", date_format):
         raise HTTPException(status_code=400, detail="date_not_supported")
 
     first_currency_data = get_currency_rates(first_currency, date_from, date_end)
