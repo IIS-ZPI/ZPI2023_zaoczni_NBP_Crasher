@@ -2,9 +2,8 @@ from time import strptime
 from fastapi import APIRouter, Query, HTTPException
 from datetime import datetime, timedelta
 import requests
-import json
 
-from backend.calculations.calculations import calculate_statistics
+from calculations.calculations import calculate_statistics
 
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"
@@ -118,6 +117,11 @@ async def get_stats(
         description="End date for which data will be fetched",
     ),
 ):
+    try:
+        datetime.strptime(date_from, date_format)
+        datetime.strptime(date_end, date_format)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="invalid_date_format")
     if strptime(date_from, date_format) > strptime(date_end, date_format) or strptime(
         date_end, date_format
     ) > strptime(datetime.today().strftime(date_format), date_format):

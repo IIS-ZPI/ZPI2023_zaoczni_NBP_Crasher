@@ -6,5 +6,6 @@ WORKDIR /code/app
 
 RUN pip install --no-cache-dir --upgrade -r /code/app/requirements.txt
 
-# Temporary to test if container is running correctly
-CMD ["tail", "-f", "/dev/null"]
+CMD ["python","fastAPI.py"]
+
+EXPOSE 8000

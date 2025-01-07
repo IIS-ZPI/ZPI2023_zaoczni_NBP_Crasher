@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from backend.routes.stats_routes import stats_routes
+from routes.stats_routes import stats_routes
 
 origins = ["http://localhost", "http://localhost:4200"]
 

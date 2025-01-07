@@ -1,6 +1,6 @@
 from numpy import std, inf
 import pandas as pd
-from backend.calculations.json_to_dataframe import json_to_data_frame
+from calculations.json_to_dataframe import json_to_data_frame
 
 
 def calculate_statistical_measures(data: pd.Series):
