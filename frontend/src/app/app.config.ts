@@ -84,11 +84,11 @@ export const timeFrames: TimeFrame[] = [
   },
 ];
 
-export const defaultTimeFrameIndex: number = 1; // 2W
+export const defaultTimeFrameIndex: number = 0; // 1W
 
 export const defaultTimeFrame: TimeFrame = {
-  badge: '2W',
-  dateFrom: twoWeeksDateFrom,
+  badge: '1W',
+  dateFrom: oneWeekDateFrom,
   dateTo: new Date(endDate),
 };
 
