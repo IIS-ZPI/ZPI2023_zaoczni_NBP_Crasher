@@ -4,9 +4,7 @@ import { By } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
-import { DxSelectBoxComponent, } from 'devextreme-angular/ui/select-box';
 import { timeFrames } from './app.config';
-import { availableCurrencies } from './app.model';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
