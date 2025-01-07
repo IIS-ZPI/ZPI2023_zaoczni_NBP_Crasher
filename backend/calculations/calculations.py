@@ -20,7 +20,7 @@ def calculate_statistical_measures(data: pd.Series):
     Raises:
         ValueError: If data is None
     """
-    
+
     if data is None or len(data) == 0:
         raise ValueError("data empty")
 
@@ -142,7 +142,7 @@ def create_dynamic_ranges(data, n_ranges=14):
     Raises:
         ValueError: If data is None
     """
-    
+
     if data is None or len(data) == 0:
         raise ValueError("data empty")
 
