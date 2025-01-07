@@ -47,13 +47,13 @@ async def get_stats(
         raise HTTPException(status_code=400, detail="date_not_supported")
 
     try:
-        first_currency_data = asyncio.create_task(get_currency_rates(
-            first_currency, date_from, date_end
-        ))
+        first_currency_data = asyncio.create_task(
+            get_currency_rates(first_currency, date_from, date_end)
+        )
         if second_currency != "":
-            second_currency_data = asyncio.create_task(get_currency_rates(
-                second_currency, date_from, date_end
-            ))
+            second_currency_data = asyncio.create_task(
+                get_currency_rates(second_currency, date_from, date_end)
+            )
 
             first_currency_data, second_currency_data = await asyncio.gather(
                 first_currency_data, second_currency_data
