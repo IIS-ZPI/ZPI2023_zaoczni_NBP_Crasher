@@ -126,8 +126,8 @@ async def get_stats(
     if strptime(date_from, date_format) < strptime("2002-01-02", date_format):
         raise HTTPException(status_code=400, detail="date_not_supported")
 
-    first_currency_data = get_currency_rates(first_currency, date_from, date_end)
     try:
+        first_currency_data = get_currency_rates(first_currency, date_from, date_end)
         if second_currency != "":
             second_currency_data = get_currency_rates(
                 second_currency, date_from, date_end
