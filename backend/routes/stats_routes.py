@@ -3,7 +3,7 @@ from fastapi import APIRouter, Query, HTTPException
 from datetime import datetime, timedelta
 import requests
 
-from calculations.calculations import calculate_statistics
+from backend.calculations.calculations import calculate_statistics
 
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"

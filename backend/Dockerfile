@@ -1,11 +1,11 @@
 FROM python:3.12
 
-COPY ./ /code/app
+COPY ./ /code/app/backend
 
 WORKDIR /code/app
 
-RUN pip install --no-cache-dir --upgrade -r /code/app/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/app/backend/requirements.txt
 
-CMD ["python","fastAPI.py"]
+CMD ["python","backend/fastAPI.py"]
 
 EXPOSE 8000
