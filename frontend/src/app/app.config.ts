@@ -1,11 +1,12 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { routes } from './app.routes';
 import { Currency, Data, TimeFrame } from './app.model';
-import { SimpleNotificationsModule } from 'angular2-notifications';
-import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -120,3 +121,7 @@ export const blankData: Data = {
   },
   changes_distribution: [],
 };
+function provideAnimations(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
+  throw new Error('Function not implemented.');
+}
+

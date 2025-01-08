@@ -8,7 +8,7 @@ import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { DxChartModule } from 'devextreme-angular/ui/chart';
 import { supportedCurrencies, Currency, Data, TimeFrame } from './app.model';
 import { StatsService } from './services/stats/stats.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ import { NotificationsService } from 'angular2-notifications';
     DxSelectBoxModule,
     DxDataGridModule,
     DxChartModule,
+    SimpleNotificationsModule,
   ],
   providers: [DatePipe, StatsService, NotificationsService],
   templateUrl: './app.component.html',
