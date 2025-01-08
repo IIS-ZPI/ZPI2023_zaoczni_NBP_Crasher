@@ -1,10 +1,13 @@
 FROM python:3.12
 
-COPY ./ /code/app
+COPY ./ /code/app/backend
 
 WORKDIR /code/app
 
-RUN pip install --no-cache-dir --upgrade -r /code/app/requirements.txt
+ENV PYTHONPATH=/code/app
 
-# Temporary to test if container is running correctly
-CMD ["tail", "-f", "/dev/null"]
+RUN pip install --no-cache-dir --upgrade -r /code/app/backend/requirements.txt
+
+CMD ["python","backend/fastAPI.py"]
+
+EXPOSE 8000

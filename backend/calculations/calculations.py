@@ -1,6 +1,6 @@
 from numpy import std, inf
 import pandas as pd
-from json_to_dataframe import json_to_data_frame
+from backend.calculations.json_to_dataframe import json_to_data_frame
 
 
 def calculate_statistical_measures(data: pd.Series):
@@ -20,6 +20,7 @@ def calculate_statistical_measures(data: pd.Series):
     Raises:
         ValueError: If data is None
     """
+
     if data is None or len(data) == 0:
         raise ValueError("data empty")
 
@@ -58,6 +59,7 @@ def count_session(data: pd.Series):
     Raises:
         ValueError: If data is None
     """
+
     if data is None or len(data) == 0:
         raise ValueError("data empty")
 
@@ -102,6 +104,7 @@ def calculate_distribution(currency_rate: pd.Series):
     Raises:
         ValueError: If currency_rate is None
     """
+
     if currency_rate is None or len(currency_rate) == 0:
         raise ValueError("currency rate empty")
 
@@ -139,6 +142,7 @@ def create_dynamic_ranges(data, n_ranges=14):
     Raises:
         ValueError: If data is None
     """
+
     if data is None or len(data) == 0:
         raise ValueError("data empty")
 
