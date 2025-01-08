@@ -3,7 +3,7 @@
   <div class="row g-4 gx-5 mt-4">
     <div class="col-6">
       <div class="row g-4">
-        <div class="col">
+        <div class="col ps-lg-0">
           <dx-select-box
             [dataSource]="availableCurrencies"
             [value]="currencyFrom.name"
@@ -37,7 +37,7 @@
             [disabled]="isCustomTimeFrame === false">
           </dx-date-box>
         </div>
-        <div class="col">
+        <div class="col pe-lg-0">
           <dx-date-box
             [(value)]="dateTo"
             (onValueChanged)="onDateToValueChanged()"
@@ -63,7 +63,7 @@
           </dx-tabs>
         </div>
 
-        <div class="col-3">
+        <div class="col-3 ps-lg-0">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>Median</h6>
             <h1 class="text-primary">{{ data.statistics.median }}</h1>
@@ -81,13 +81,14 @@
             <h1 class="text-primary">{{ data.statistics.standard_deviation }}</h1>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-3 pe-lg-0">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>Coefficient of variation</h6>
             <h1 class="text-primary">{{ data.statistics.variation_coefficient }}</h1>
           </div>
         </div>
-        <div class="col-3">
+
+        <div class="col-3 ps-lg-0">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>Increasing sessions</h6>
             <h1 class="text-primary">{{ data.sessions.increasing_sessions }}</h1>
