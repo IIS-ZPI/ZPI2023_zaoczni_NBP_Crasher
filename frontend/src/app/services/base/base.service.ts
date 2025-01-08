@@ -46,10 +46,6 @@ export class BaseService {
   }
 
   catchCustomError(error: HttpErrorResponse): ObservableInput<void> {
-    if (error.status === 401) {
-      return throwError(() => new Error('Unauthorized call. Please, sign in'));
-    }
-
     const code = error.error?.detail ?? this.defaultError.code;
     const message = this.apiErrors[code];
     this.notificationsService.error(
