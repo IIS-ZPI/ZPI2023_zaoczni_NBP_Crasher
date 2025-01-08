@@ -40,6 +40,6 @@ export type ChangeDistribution = {
 
 export type Data = {
   statistics: Statistics;
-  session: Session;
+  sessions: Session;
   changes_distribution: ChangeDistribution[];
 }

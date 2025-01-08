@@ -51,7 +51,9 @@
           <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
             <dxo-title text="Changes distribution"></dxo-title>
             <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
+            <dxi-value-axis tickInterval="1"></dxi-value-axis>
             <dxo-legend position="top" verticalAlignment="top" horizontalAlignment="center" [visible]="true"></dxo-legend>
+            <dxo-load-panel [enabled]="true"></dxo-load-panel>
           </dx-chart>
           <dx-tabs
             class="w-auto mx-auto mt-2"
@@ -88,19 +90,19 @@
         <div class="col-3">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>Increasing sessions</h6>
-            <h1 class="text-primary">{{ data.session.increasing_sessions }}</h1>
+            <h1 class="text-primary">{{ data.sessions.increasing_sessions }}</h1>
           </div>
         </div>
         <div class="col-3">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>Decreasing sessions</h6>
-            <h1 class="text-primary">{{ data.session.decreasing_sessions }}</h1>
+            <h1 class="text-primary">{{ data.sessions.decreasing_sessions }}</h1>
           </div>
         </div>
         <div class="col-3">
           <div class="bg-body p-4 pb-5 text-center rounded">
             <h6>No-change sessions</h6>
-            <h1 class="text-primary">{{ data.session.no_change_sessions }}</h1>
+            <h1 class="text-primary">{{ data.sessions.no_change_sessions }}</h1>
           </div>
         </div>
       </div>
@@ -110,6 +112,7 @@
         <dx-data-grid
           class="p-4 py-0"
           [dataSource]="data.changes_distribution">
+          <dxo-load-panel [enabled]="true"></dxo-load-panel>
           <dxi-column caption="Range from" dataField="rangeBegin"></dxi-column>
           <dxi-column caption="Range to" dataField="rangeEnd"></dxi-column>
           <dxi-column caption="Number of changes" dataField="value"></dxi-column>

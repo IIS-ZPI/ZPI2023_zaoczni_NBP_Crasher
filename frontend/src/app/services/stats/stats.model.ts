@@ -14,8 +14,15 @@ export type GetStatsRequest = {
    */
   second_currency: SupportedCurrency;
 
-  date_from: Date;
-  date_end: Date;
+  /**
+   * Must conform {@link dateFormat}
+   */
+  date_from: string;
+  
+  /**
+   * Must conform {@link dateFormat}
+   */
+  date_end: string;
 }
 
 export type GetStatsResponse = Data;
