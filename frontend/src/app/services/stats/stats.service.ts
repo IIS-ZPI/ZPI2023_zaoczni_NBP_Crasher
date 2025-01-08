@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 
 import { BaseService } from '../base/base.service';
 import { statsApiErrors } from './stats.errors';
@@ -30,7 +30,7 @@ export class StatsService extends BaseService {
     const request = this.httpClient.get<GetStatsResponse>(
       `${environment.apiUrl}/${this.baseRoutePath}`,
       { params }
-    );
+    ).pipe(catchError(this.catchCustomError.bind(this)));
 
     return await firstValueFrom(request) as Data;
   }
