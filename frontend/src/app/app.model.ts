@@ -1,32 +1,36 @@
-
 import { Item as DxTabsItem } from 'devextreme/ui/tabs';
 
+export type SupportedCurrency = 'USD' | 'EUR' | 'GBP' | 'JPY' | 'CHF' | 'PLN';
+
 export type Currency = {
-  name: string;
+  name: SupportedCurrency;
 }
 
-export const availableCurrencies: Currency[] =  [
-  {
-    name: 'USD',
-  },
-  {
-    name: 'EUR',
-  },
-  {
-    name: 'GBP',
-  },
-  {
-    name: 'JPY',
-  },
-  {
-    name: 'CHF',
-  },
-  {
-    name: 'PLN',
-  },
+export const supportedCurrencies: Currency[] =  [
+  { name: 'USD' },
+  { name: 'EUR' },
+  { name: 'GBP' },
+  { name: 'JPY' },
+  { name: 'CHF' },
+  { name: 'PLN' },
 ];
 
 export type TimeFrame = DxTabsItem & { dateFrom?: Date, dateTo?: Date };
+
+export type Statistics = {
+  mode: {
+    [key: string]: number;
+  };
+  standard_deviation: number;
+  variation_coefficient: number;
+  median: number;
+}
+
+export type Session = {
+  increasing_sessions: number;
+  decreasing_sessions: number;
+  no_change_sessions: number;
+}
 
 export type ChangeDistribution = {
   rangeBegin: string;
@@ -35,18 +39,7 @@ export type ChangeDistribution = {
 }
 
 export type Data = {
-  statistics: {
-    mode: {
-      [key: string]: number;
-    };
-    standard_deviation: number;
-    variation_coefficient: number;
-    median: number;
-  };
-  session: {
-    increasing_sessions: number;
-    decreasing_sessions: number;
-    no_change_sessions: number;
-  };
+  statistics: Statistics;
+  session: Session;
   changes_distribution: ChangeDistribution[];
 }

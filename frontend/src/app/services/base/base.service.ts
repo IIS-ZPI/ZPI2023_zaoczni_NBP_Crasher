@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { ObservableInput, throwError } from 'rxjs';
@@ -21,11 +21,7 @@ export class BaseService {
     code: 'internal_server_error',
   };
 
-  constructor(
-    protected readonly notificationsService: NotificationsService,
-    protected readonly httpClient: HttpClient,
-  ) {
-  }
+  constructor(protected readonly notificationsService: NotificationsService) { }
 
   generateParams(filters?: unknown): HttpParams {
     let params = new HttpParams();

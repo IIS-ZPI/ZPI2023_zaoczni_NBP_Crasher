@@ -5,7 +5,7 @@ import { DxTabsModule } from 'devextreme-angular/ui/tabs';
 import { DxSelectBoxModule } from 'devextreme-angular/ui/select-box';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { DxChartModule } from 'devextreme-angular/ui/chart';
-import { availableCurrencies, Currency, Data, TimeFrame } from './app.model';
+import { supportedCurrencies, Currency, Data, TimeFrame } from './app.model';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,7 @@ import { availableCurrencies, Currency, Data, TimeFrame } from './app.model';
 export class AppComponent {
 
   readonly appName = appName;
-  readonly availableCurrencies = availableCurrencies;
+  readonly availableCurrencies = supportedCurrencies;
   readonly timeFrames = timeFrames;
   readonly minDateFrom = minDateFrom;
 
