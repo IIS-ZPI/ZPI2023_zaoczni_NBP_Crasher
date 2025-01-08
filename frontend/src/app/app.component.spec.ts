@@ -1,15 +1,22 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
+
+import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
 
 import { AppComponent } from './app.component';
 
-import { DxDateBoxComponent } from 'devextreme-angular/ui/date-box';
 import { timeFrames } from './app.config';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        AppComponent,
+        HttpClientTestingModule,
+        SimpleNotificationsModule.forRoot(),
+      ],
     }).compileComponents();
   });
 
