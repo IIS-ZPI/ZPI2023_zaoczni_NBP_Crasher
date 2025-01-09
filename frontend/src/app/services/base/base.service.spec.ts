@@ -57,16 +57,4 @@ describe('BaseService', () => {
     });
   });
 
-  // it('should return empty FormData when no data is provided', () => {
-  //   const formData = service.getFormData();
-  //   expect(Array.from(formData.keys()).length).toBe(0);
-  // });
-
-  it('should append data correctly to FormData', () => {
-    const data = { key1: 'value1', key2: 'value2' };
-    const formData = service.getFormData(data);
-    expect(formData.get('key1')).toBe('value1');
-    expect(formData.get('key2')).toBe('value2');
-  });
-
 });

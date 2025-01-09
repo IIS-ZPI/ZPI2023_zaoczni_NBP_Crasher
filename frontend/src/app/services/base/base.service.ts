@@ -56,19 +56,5 @@ export class BaseService {
 
     return throwError(() => new Error(message));
   }
-
-  getFormData(data?: unknown): FormData {
-    const formData = new FormData();
-
-    if (!data) {
-      return formData;
-    }
-
-    for (const [name, value] of Object.entries(data)) {
-      formData.append(name, `${value}`);
-    }
-
-    return formData;
-  }
   
 }
