@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
-import { ObservableInput, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ApiError } from '../../models/error.model';
 import { baseApiErrors } from './base.errors';
 
@@ -45,7 +45,7 @@ export class BaseService {
     return params;
   }
 
-  catchCustomError(error: HttpErrorResponse): ObservableInput<void> {
+  catchCustomError(error: HttpErrorResponse): Observable<void> {
     const code = error.error?.detail ?? this.defaultError.code;
     const message = this.apiErrors[code];
     this.notificationsService.error(
