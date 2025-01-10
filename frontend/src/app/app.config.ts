@@ -1,11 +1,22 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { routes } from './app.routes';
 import { Currency, Data, TimeFrame } from './app.model';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(
+      SimpleNotificationsModule.forRoot(),
+      CommonModule,
+    ),
+    provideHttpClient(),
+  ],
 };
 
 export const appName: string = 'NBP Crasher';
@@ -92,40 +103,25 @@ export const defaultTimeFrame: TimeFrame = {
   dateTo: new Date(endDate),
 };
 
-// Sample data based before an actual API integration
-export const tempData: Data = {
+export const dateFormat: string = 'yyyy-MM-dd';
+
+export const blankData: Data = {
   statistics: {
     mode: {
-      '3.9355': 2,
-      '3.9352': 2,
-      '3.9368': 2,
-      '3.9389': 2,
-      '3.9183': 2,
-      '3.9922': 2,
+      '0.0000': 0,
     },
-    standard_deviation: 5,
-    variation_coefficient: 0.25,
-    median: 15
+    standard_deviation: 0,
+    variation_coefficient: 0,
+    median: 0
   },
-  session: {
-    increasing_sessions: 3,
-    decreasing_sessions: 2,
-    no_change_sessions: 2
+  sessions: {
+    increasing_sessions: 0,
+    decreasing_sessions: 0,
+    no_change_sessions: 0
   },
-  changes_distribution: [
-    { rangeBegin: '-∞', rangeEnd: '-0.0116', value: 1 },
-    { rangeBegin: '-0.0116', rangeEnd: '-0.0090', value: 2 },
-    { rangeBegin: '-0.0090', rangeEnd: '-0.0064', value: 3 },
-    { rangeBegin: '-0.0064', rangeEnd: '-0.0038', value: 0 },
-    { rangeBegin: '-0.0038', rangeEnd: '-0.0012', value: 5 },
-    { rangeBegin: '-0.0012', rangeEnd: '0.0014', value: 6 },
-    { rangeBegin: '0.0014', rangeEnd: '0.0040', value: 7 },
-    { rangeBegin: '0.0040', rangeEnd: '0.0066', value: 8 },
-    { rangeBegin: '0.0066', rangeEnd: '0.0092', value: 9 },
-    { rangeBegin: '0.0092', rangeEnd: '0.0118', value: 10 },
-    { rangeBegin: '0.0118', rangeEnd: '0.0145', value: 11 },
-    { rangeBegin: '0.0145', rangeEnd: '0.0171', value: 0 },
-    { rangeBegin: '0.0171', rangeEnd: '0.0197', value: 13 },
-    { rangeBegin: '0.0197', rangeEnd: '+∞', value: 14 },
-  ],
+  changes_distribution: [],
 };
+function provideAnimations(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
+  throw new Error('Function not implemented.');
+}
+

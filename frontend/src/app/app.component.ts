@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-import { appName as appName, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDateFrom, tempData, timeFrames } from './app.config';
+import { Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { appName as appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDateFrom, blankData, timeFrames } from './app.config';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxTabsModule } from 'devextreme-angular/ui/tabs';
 import { DxSelectBoxModule } from 'devextreme-angular/ui/select-box';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { DxChartModule } from 'devextreme-angular/ui/chart';
-import { availableCurrencies, Currency, Data, TimeFrame } from './app.model';
+import { supportedCurrencies, Currency, Data, TimeFrame } from './app.model';
+import { StatsService } from './services/stats/stats.service';
+import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +19,16 @@ import { availableCurrencies, Currency, Data, TimeFrame } from './app.model';
     DxSelectBoxModule,
     DxDataGridModule,
     DxChartModule,
+    SimpleNotificationsModule,
   ],
+  providers: [DatePipe, StatsService, NotificationsService],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
 
   readonly appName = appName;
-  readonly availableCurrencies = availableCurrencies;
+  readonly availableCurrencies = supportedCurrencies;
   readonly timeFrames = timeFrames;
   readonly minDateFrom = minDateFrom;
 
@@ -35,6 +40,9 @@ export class AppComponent {
     return Math.max(...Object.values(this.data.statistics.mode));
   }
 
+  readonly statsService = inject(StatsService);
+  readonly datePipe = inject(DatePipe);
+
   currencyFrom: Currency = defaultCurrencyFrom;
   currencyTo: Currency = defaultCurrencyTo;
 
@@ -43,11 +51,17 @@ export class AppComponent {
 
   selectedTimeFrameIndex: number = defaultTimeFrameIndex;
   selectedTimeFrame: TimeFrame = defaultTimeFrame;
-  data: Data = tempData;
+  data: Data = blankData;
 
   async refreshData(): Promise<void> {
     try {
-      console.error('TODO');
+      this.data = await this.statsService.get({
+        first_currency: this.currencyFrom.name,
+        second_currency: this.currencyTo.name,
+
+        date_from: this.datePipe.transform(this.dateFrom, dateFormat)!,
+        date_end: this.datePipe.transform(this.dateTo, dateFormat)!,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -59,7 +73,6 @@ export class AppComponent {
 
   onCurrencyToSelectionChanged(): void {
     this.refreshData();
-    this.maxMode
   }
 
   onDateFromValueChanged(): void {
