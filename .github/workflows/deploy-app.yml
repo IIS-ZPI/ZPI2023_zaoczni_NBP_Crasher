@@ -39,6 +39,7 @@ jobs:
               Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.failure_ico }} Cannot find version in ./README.md ${{ env.failure_ico }}"
               throw "No version found in README.md"
             }
+            $tag = $tag.Split(":")[1].Trim()
           }
           Add-Content -Path $env:GITHUB_OUTPUT -Value "tag_name=$tag"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.success_ico }} Version $tag will be deloyed ${{ env.success_ico }}"
