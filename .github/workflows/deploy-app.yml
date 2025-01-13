@@ -1,0 +1,61 @@
+name: Deploy App
+run-name: Deploy App
+
+on:
+  push:
+    branches:
+      - release
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: "Version tag"
+        required: true
+        default: "2.0.0"
+
+env:
+  success_ico: ":heavy_check_mark:"
+  failure_ico: ":x:"
+  cancel_ico: ":no_entry_sign:"
+
+jobs:
+  Build:
+    runs-on: self-hosted
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version to deploy
+        shell: pwsh
+        id: version
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          if ("${{github.event_name}}" -eq "workflow_dispatch"){
+            $tag = "${{ inputs.version_tag }}"
+          } else {
+            $tag = $(Get-Content -Path "./README.md" | Where-Object { $_ -like "##### version:*" })
+            if ($null -eq $tag) {
+              Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.failure_ico }} Cannot find version in ./README.md ${{ env.failure_ico }}"
+              throw "No version found in README.md"
+            }
+          }
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "tag_name=$tag"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "# ${{ env.success_ico }} Version $tag will be deloyed ${{ env.success_ico }}"
+
+      - name: Checkout to version ${{ steps.version.outputs.tag_name }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.version.outputs.tag_name }}
+
+      - name: Build Image
+        run: docker compose build --no-cache
+
+      - name: Stop exitsing container
+        run: docker compose down -v
+
+      - name: Run Container
+        run: docker compose up -d
+
+      - name: Clean up deployment server
+        run: docker system prune --force --volumes
