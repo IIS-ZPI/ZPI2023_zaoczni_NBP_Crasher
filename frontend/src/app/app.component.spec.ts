@@ -161,4 +161,17 @@ describe('AppComponent', () => {
     expect(app.selectedTimeFrame.badge).toEqual('1W')
   });
 
+  it('should print multiple dominants (modes) when API returns more than 1 mode value', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const app = fixture.componentInstance;
+    app.data.statistics.mode = {
+      '1.2222': 123,
+      '1.2224': 123,
+      '1.2226': 123,
+    };
+
+    expect(app.statistictsDominants).toEqual('1.2222 1.2224 1.2226');
+  });
+
 });
