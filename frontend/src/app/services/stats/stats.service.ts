@@ -15,8 +15,14 @@ import { environment } from '../../../environments/environment';
 })
 export class StatsService extends BaseService {
 
+  /** Base route path for the stats API */
   readonly baseRoutePath: string = 'stats';
 
+  /**
+   * Constructor for StatsService
+   * @param {NotificationsService} notifications Service for displaying notifications
+   * @param {HttpClient} httpClient Http client for making HTTP requests
+   */
   constructor(
     private readonly notifications: NotificationsService,
     private readonly httpClient: HttpClient,
@@ -25,6 +31,11 @@ export class StatsService extends BaseService {
     this.apiErrors = { ...statsApiErrors, ...this.apiErrors };
   }
 
+  /**
+   * Fetches statistics data based on given filters
+   * @param {GetStatsRequest} filters Filters to apply to the stats request
+   * @returns {Promise<Data>} A promise that resolves to the fetched data
+   */
   async get(filters: GetStatsRequest): Promise<Data> {
     const params = this.generateParams(filters);
     const request = this.httpClient.get<GetStatsResponse>(

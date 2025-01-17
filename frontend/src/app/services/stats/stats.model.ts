@@ -25,4 +25,7 @@ export type GetStatsRequest = {
   date_end: string;
 }
 
+/**
+ * Represents a get request response for stats
+ */
 export type GetStatsResponse = Data;

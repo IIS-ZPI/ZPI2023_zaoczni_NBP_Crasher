@@ -10,19 +10,31 @@ import { baseApiErrors } from './base.errors';
 })
 export class BaseService {
 
+  /** Base API errors */
   apiErrors: ApiError = baseApiErrors;
 
+  /** Override settings for notifications */
   static readonly notificationOverride = {
     timeOut: 9000,
   };
 
+  /** Default error configuration */
   readonly defaultError = {
     title: 'Error',
     code: 'internal_server_error',
   };
 
+  /**
+   * Constructor for BaseService
+   * @param {NotificationsService} notificationsService Service for displaying notifications
+   */
   constructor(protected readonly notificationsService: NotificationsService) { }
 
+  /**
+   * Generates HttpParams from given filters
+   * @param {unknown} filters Optional filters to be converted into HttpParams
+   * @returns {HttpParams} The generated HttpParams
+   */
   generateParams(filters?: unknown): HttpParams {
     let params = new HttpParams();
 
@@ -45,6 +57,11 @@ export class BaseService {
     return params;
   }
 
+  /**
+   * Handles custom HTTP errors and displays appropriate notifications
+   * @param {HttpErrorResponse} error The HTTP error response to handle
+   * @returns {Observable<void>} An observable that throws the processed error message
+   */
   catchCustomError(error: HttpErrorResponse): Observable<void> {
     const code = error.error?.detail ?? this.defaultError.code;
     const message = this.apiErrors[code];
