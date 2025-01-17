@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { appName as appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDateFrom, blankData, timeFrames } from './app.config';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxTabsModule } from 'devextreme-angular/ui/tabs';
@@ -21,7 +21,7 @@ import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifi
     DxChartModule,
     SimpleNotificationsModule,
   ],
-  providers: [DatePipe, StatsService, NotificationsService],
+  providers: [DatePipe, StatsService, NotificationsService, DecimalPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -36,10 +36,12 @@ export class AppComponent {
     return timeFrames[this.selectedTimeFrameIndex].badge === 'CUSTOM';
   }
 
-  get maxMode(): number {
-    return Math.max(...Object.values(this.data.statistics.mode));
+  get statistictsDominants(): string {
+    const dominants = [...Object.keys(this.data.statistics.mode)];
+    return dominants.map(d => this.decimalPipe.transform(d, '1.4-4')).join(' ');
   }
 
+  readonly decimalPipe = inject(DecimalPipe);
   readonly statsService = inject(StatsService);
   readonly datePipe = inject(DatePipe);
 
