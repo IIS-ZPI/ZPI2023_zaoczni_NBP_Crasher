@@ -1,3 +1,3 @@
 # ZPI2023_zaoczni_NBP_Crasher
 
-##### version: 2.2.0
+##### version: 2.2.1
