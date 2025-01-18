@@ -1,13 +1,13 @@
 import asyncio
 from time import strptime
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Request
 from datetime import datetime, timedelta
 from aiocache import Cache
 from aiocache.decorators import cached
-
 from backend.calculations.calculations import calculate_statistics
 from backend.requester import get_currency_rates
 from backend.routes.stats_routes_responses import get_stats_responses
+from backend.limiter import limiter
 
 TTL = 60 * 60  # 60mins cache
 stats_routes = APIRouter(tags=["Statistics router"])
@@ -20,7 +20,9 @@ date_format = "%Y-%m-%d"
     responses=get_stats_responses,
     description="Returns analysis of rates for currency/currencies passed to endpoint as parameters for specified time span",
 )
+@limiter.limit("500/minute")
 async def get_stats(
+    request: Request,
     first_currency: str = Query(
         default="usd", description="First currency 3 characters symbol", max_length=3
     ),
