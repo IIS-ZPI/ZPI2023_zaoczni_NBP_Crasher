@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
+from backend.limiter import limiter
 from backend.routes.stats_routes import stats_routes
 
 origins = [
@@ -19,6 +20,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.state.limiter = limiter
 
 app.include_router(stats_routes, prefix="/api/stats")
 
