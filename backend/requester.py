@@ -1,13 +1,8 @@
-from aiocache import Cache
-from aiocache.decorators import cached
-
 import httpx
 
 nbp_api_url = "https://api.nbp.pl/api/exchangerates/rates/a"
-TTL = 60 * 60  # 60mins cache
 
 
-@cached(ttl=TTL, cache=Cache.MEMORY)
 async def get_currency_rates(currency_code: str, date_from: str, date_end: str) -> str:
     currency_code = currency_code.lower()
     url = f"{nbp_api_url}/{currency_code}/{date_from}/{date_end}/"
