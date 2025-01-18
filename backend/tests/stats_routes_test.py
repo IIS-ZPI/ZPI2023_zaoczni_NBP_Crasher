@@ -60,6 +60,13 @@ class TestStatsRoutes(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 422)
 
+    def test_get_stats_dates_equal(self, mock_get_currency_rates):
+        response = client.get(
+            f"{API_STATS_URL}?first_currency=usd&date_from=2023-01-01&date_end=2023-01-01"
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"detail": "invalid_data"})
+
     def test_get_stats_two_currencies_valid(self, mock_get_currency_rates):
         mock_get_currency_rates.side_effect = [
             {

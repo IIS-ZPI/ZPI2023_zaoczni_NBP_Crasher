@@ -45,7 +45,8 @@ async def get_stats(
 
     if strptime(date_from, date_format) < strptime("2002-01-02", date_format):
         raise HTTPException(status_code=400, detail="date_not_supported")
-
+    if strptime(date_from, date_format) == strptime(date_end, date_format):
+        raise HTTPException(status_code=400, detail="invalid_data")
     try:
         first_currency_data = asyncio.create_task(
             get_currency_rates(first_currency, date_from, date_end)
