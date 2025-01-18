@@ -59,7 +59,6 @@ async def get_stats(
             first_currency_data, second_currency_data = await asyncio.gather(
                 first_currency_data, second_currency_data
             )
-
             return calculate_statistics(first_currency_data, second_currency_data)
         first_currency_data = await first_currency_data
         return calculate_statistics(first_currency_data)
