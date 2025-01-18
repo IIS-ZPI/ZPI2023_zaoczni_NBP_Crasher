@@ -14,13 +14,17 @@ max_days = 365
 
 
 @cached(ttl=TTL, cache=Cache.MEMORY)
-async def get_currency_rates(currency_code: str, date_from: str, date_end: str) -> List[Dict[str, Any]]:
+async def get_currency_rates(
+    currency_code: str, date_from: str, date_end: str
+) -> List[Dict[str, Any]]:
     start_date = datetime.datetime.strptime(date_from, date_format)
     end_date = datetime.datetime.strptime(date_end, date_format)
     tasks = []
 
     while start_date <= end_date:
-        next_end_date = min(start_date + datetime.timedelta(days=max_days - 1), end_date)
+        next_end_date = min(
+            start_date + datetime.timedelta(days=max_days - 1), end_date
+        )
         if next_end_date == start_date:
             break
 

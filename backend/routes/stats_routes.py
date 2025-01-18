@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from backend.calculations.calculations import calculate_statistics
 from backend.requester import get_currency_rates
 from backend.routes.stats_routes_responses import get_stats_responses
+
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"
 

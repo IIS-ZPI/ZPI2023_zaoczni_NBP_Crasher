@@ -6,12 +6,12 @@ def merge_currency_data(responses: List[str]) -> Dict[str, Any]:
         return {}
 
     merged_result = {
-        'table': responses[0]['table'],
-        'currency': responses[0]['currency'],
-        'code': responses[0]['code'],
-        'rates': []
+        "table": responses[0]["table"],
+        "currency": responses[0]["currency"],
+        "code": responses[0]["code"],
+        "rates": [],
     }
 
     for response in responses:
-        merged_result['rates'].extend(response['rates'])
+        merged_result["rates"].extend(response["rates"])
     return merged_result
