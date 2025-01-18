@@ -32,7 +32,7 @@ export const defaultCurrencyTo: Currency = {
 /**
  * Based on NBP API docs
  */
-export const minDateFrom = '2002-01-02';
+export const minDate = '2002-01-02';
 
 const now = new Date();
 const startDate = new Date();
