@@ -2,16 +2,19 @@ import asyncio
 from time import strptime
 from fastapi import APIRouter, Query, HTTPException
 from datetime import datetime, timedelta
-
+from aiocache import Cache
+from aiocache.decorators import cached
 
 from backend.calculations.calculations import calculate_statistics
 from backend.requester import get_currency_rates
 from backend.routes.stats_routes_responses import get_stats_responses
 
+TTL = 60 * 60  # 60mins cache
 stats_routes = APIRouter(tags=["Statistics router"])
 date_format = "%Y-%m-%d"
 
 
+@cached(ttl=TTL, cache=Cache.MEMORY)
 @stats_routes.get(
     "/",
     responses=get_stats_responses,
