@@ -4,7 +4,12 @@ import uvicorn
 
 from backend.routes.stats_routes import stats_routes
 
-origins = ["http://localhost", "http://localhost:4200"]
+origins = [
+    "http://localhost",
+    "http://localhost:4200",
+    "http://zpi",
+    "http://zpi.tail8ec47f.ts.net",
+]
 
 app = FastAPI()
 app.add_middleware(
