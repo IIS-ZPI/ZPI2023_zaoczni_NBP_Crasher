@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { appName as appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDateFrom, blankData, timeFrames } from './app.config';
+import { appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDate, blankData, timeFrames } from './app.config';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxTabsModule } from 'devextreme-angular/ui/tabs';
 import { DxSelectBoxModule } from 'devextreme-angular/ui/select-box';
@@ -30,7 +30,7 @@ export class AppComponent {
   readonly appName = appName;
   readonly availableCurrencies = supportedCurrencies;
   readonly timeFrames = timeFrames;
-  readonly minDateFrom = minDateFrom;
+  readonly minDate = minDate;
 
   get isCustomTimeFrame(): boolean { 
     return timeFrames[this.selectedTimeFrameIndex].badge === 'CUSTOM';
