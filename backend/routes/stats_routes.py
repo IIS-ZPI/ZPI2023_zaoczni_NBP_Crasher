@@ -37,7 +37,7 @@ async def get_stats(
     ),
 ):
     if first_currency == second_currency:
-        raise HTTPException(status_code=400, detail="invalid_data")
+        raise HTTPException(status_code=400, detail="currencies_are_equal")
 
     try:
         datetime.strptime(date_from, date_format)
