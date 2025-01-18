@@ -38,6 +38,9 @@ async def get_stats(
         description="End date for which data will be fetched",
     ),
 ):
+    if first_currency == second_currency:
+        raise HTTPException(status_code=400, detail="currencies_are_equal")
+
     try:
         datetime.strptime(date_from, date_format)
         datetime.strptime(date_end, date_format)
@@ -52,11 +55,16 @@ async def get_stats(
         raise HTTPException(status_code=400, detail="date_not_supported")
     if strptime(date_from, date_format) == strptime(date_end, date_format):
         raise HTTPException(status_code=400, detail="invalid_data")
+
+    if first_currency == "PLN":
+        first_currency = second_currency
+        second_currency = "PLN"
+
     try:
         first_currency_data = asyncio.create_task(
             get_currency_rates(first_currency, date_from, date_end)
         )
-        if second_currency != "":
+        if second_currency not in ["PLN", ""]:
             second_currency_data = asyncio.create_task(
                 get_currency_rates(second_currency, date_from, date_end)
             )
