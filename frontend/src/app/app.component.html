@@ -22,8 +22,9 @@
 
                 <div class="col-12 rounded bg-body p-4 pb-5 pb-0">
                     <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
-                        <dxo-title text="Changes distribution"></dxo-title>
+                        <dxo-title [text]="getChartTitle(currencyFrom, currencyTo)"></dxo-title>
                         <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
+                        <dxo-argument-axis title="Bucket ranges"></dxo-argument-axis>
                         <dxi-value-axis tickInterval="1"></dxi-value-axis>
                         <dxo-legend position="top" verticalAlignment="top" horizontalAlignment="center" [visible]="true"></dxo-legend>
                         <dxo-load-panel [enabled]="true"></dxo-load-panel>
@@ -35,7 +36,7 @@
                 <div class="col-3 ps-lg-0">
                     <div class="bg-body p-4 pb-5 text-center rounded">
                         <h6>Median</h6>
-                        <h1 class="text-primary">{{ data.statistics.median }}</h1>
+                        <h1 class="text-primary">{{ data.statistics.median | number:'1.4-4' }}</h1>
                     </div>
                 </div>
                 <div class="col-3">
@@ -47,13 +48,13 @@
                 <div class="col-3">
                     <div class="bg-body p-4 pb-5 text-center rounded">
                         <h6>Standard deviation</h6>
-                        <h1 class="text-primary">{{ data.statistics.standard_deviation }}</h1>
+                        <h1 class="text-primary">{{ data.statistics.standard_deviation | number:'1.4-4' }}</h1>
                     </div>
                 </div>
                 <div class="col-3 pe-lg-0">
                     <div class="bg-body p-4 pb-5 text-center rounded">
                         <h6>Coefficient of variation</h6>
-                        <h1 class="text-primary">{{ data.statistics.variation_coefficient }}</h1>
+                        <h1 class="text-primary">{{ data.statistics.variation_coefficient | number:'1.4-4' }}</h1>
                     </div>
                 </div>
 

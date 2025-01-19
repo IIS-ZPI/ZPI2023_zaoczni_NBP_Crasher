@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDate, blankData, timeFrames } from './app.config';
+import { appName, dateFormat, defaultCurrencyFrom, defaultCurrencyTo, defaultTimeFrame, defaultTimeFrameIndex, minDate, blankData, timeFrames, getChartTitle } from './app.config';
 import { DxDateBoxModule } from 'devextreme-angular/ui/date-box';
 import { DxTabsModule } from 'devextreme-angular/ui/tabs';
 import { DxSelectBoxModule } from 'devextreme-angular/ui/select-box';
@@ -20,7 +20,8 @@ import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifi
     DxDataGridModule,
     DxChartModule,
     SimpleNotificationsModule,
-  ], // Imported modules
+    DecimalPipe,
+  ],
   providers: [DatePipe, StatsService, NotificationsService, DecimalPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -85,6 +86,8 @@ export class AppComponent {
   
   /** Placeholder for data */
   data: Data = blankData;
+
+  getChartTitle = getChartTitle;
 
   /**
    * Refreshes data based on selected parameters
