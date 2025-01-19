@@ -1,0 +1,93 @@
+<div class="vw-100 min-vh-100 bg-light p-5">
+    <h1 class="fw-bold text-uppercase text-center">{{ appName }}</h1>
+    <div class="row g-4 gx-5 mt-4">
+        <div class="col-6">
+            <div class="row g-4">
+                <div class="col ps-lg-0">
+                    <dx-select-box [dataSource]="availableCurrencies" [value]="currencyFrom.name" [(selectedItem)]="currencyFrom" (onSelectionChanged)="onCurrencyFromSelectionChanged()" label="From" labelMode="floating" valueExpr="name" displayExpr="name">
+                    </dx-select-box>
+                </div>
+                <div class="col">
+                    <dx-select-box [dataSource]="availableCurrencies" [value]="currencyTo.name" [(selectedItem)]="currencyTo" (onSelectionChanged)="onCurrencyToSelectionChanged()" label="To" labelMode="floating" valueExpr="name" displayExpr="name">
+                    </dx-select-box>
+                </div>
+                <div class="col">
+                    <dx-date-box [(value)]="dateFrom" (onValueChanged)="onDateFromValueChanged()" displayFormat="yyyy-MM-dd" label="Date from" [min]="minDate" [disabled]="isCustomTimeFrame === false">
+                    </dx-date-box>
+                </div>
+                <div class="col pe-lg-0">
+                    <dx-date-box [(value)]="dateTo" (onValueChanged)="onDateToValueChanged()" displayFormat="yyyy-MM-dd" label="Date to" [min]="minDate" [disabled]="isCustomTimeFrame === false">
+                    </dx-date-box>
+                </div>
+
+                <div class="col-12 rounded bg-body p-4 pb-5 pb-0">
+                    <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
+                        <dxo-title text="Changes distribution"></dxo-title>
+                        <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
+                        <dxi-value-axis tickInterval="1"></dxi-value-axis>
+                        <dxo-legend position="top" verticalAlignment="top" horizontalAlignment="center" [visible]="true"></dxo-legend>
+                        <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                    </dx-chart>
+                    <dx-tabs class="w-auto mx-auto mt-2" [dataSource]="timeFrames" [selectedIndex]="selectedTimeFrameIndex" (selectedIndexChange)="onTimeFrameIndexSelectionChanged($event)">
+                    </dx-tabs>
+                </div>
+
+                <div class="col-3 ps-lg-0">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Median</h6>
+                        <h1 class="text-primary">{{ data.statistics.median }}</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Mode</h6>
+                        <h1 class="text-primary">{{ statistictsDominants }}</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Standard deviation</h6>
+                        <h1 class="text-primary">{{ data.statistics.standard_deviation }}</h1>
+                    </div>
+                </div>
+                <div class="col-3 pe-lg-0">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Coefficient of variation</h6>
+                        <h1 class="text-primary">{{ data.statistics.variation_coefficient }}</h1>
+                    </div>
+                </div>
+
+                <div class="col-3 ps-lg-0">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Increasing sessions</h6>
+                        <h1 class="text-primary">{{ data.sessions.increasing_sessions }}</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>Decreasing sessions</h6>
+                        <h1 class="text-primary">{{ data.sessions.decreasing_sessions }}</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="bg-body p-4 pb-5 text-center rounded">
+                        <h6>No-change sessions</h6>
+                        <h1 class="text-primary">{{ data.sessions.no_change_sessions }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="p-4 bg-body rounded">
+                <dx-data-grid class="p-4 py-0" [dataSource]="data.changes_distribution">
+                    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                    <dxi-column caption="Range from" dataField="rangeBegin"></dxi-column>
+                    <dxi-column caption="Range to" dataField="rangeEnd"></dxi-column>
+                    <dxi-column caption="Number of changes" dataField="value"></dxi-column>
+                </dx-data-grid>
+            </div>
+        </div>
+    </div>
+</div>
+
+<simple-notifications />
