@@ -24,7 +24,7 @@
                     <dx-chart [dataSource]="data.changes_distribution" class="w-100" palette="Violet">
                         <dxo-title [text]="getChartTitle(currencyFrom, currencyTo)"></dxo-title>
                         <dxi-series argumentField="rangeBegin" valueField="value" name="Frequency" type="bar"></dxi-series>
-                        <dxo-argument-axis title="Bucket ranges"></dxo-argument-axis>
+                        <dxo-argument-axis title="Bucket value"></dxo-argument-axis>
                         <dxi-value-axis tickInterval="1"></dxi-value-axis>
                         <dxo-legend position="top" verticalAlignment="top" horizontalAlignment="center" [visible]="true"></dxo-legend>
                         <dxo-load-panel [enabled]="true"></dxo-load-panel>
