@@ -120,12 +120,22 @@ export const blankData: Data = {
     },
     standard_deviation: 0,
     variation_coefficient: 0,
-    median: 0
+    median: 0,
   },
   sessions: {
     increasing_sessions: 0,
     decreasing_sessions: 0,
-    no_change_sessions: 0
+    no_change_sessions: 0,
   },
   changes_distribution: [],
 };
+
+/**
+ * Generates a title for chart
+ * @param currencyFrom Currency from
+ * @param currencyTo Currency to
+ * @returns Main chart's title
+ */
+export const getChartTitle = (currencyFrom: Currency, currencyTo: Currency): string => {
+  return `Changes distribution ${currencyFrom.name}/${currencyTo.name}`;
+}
