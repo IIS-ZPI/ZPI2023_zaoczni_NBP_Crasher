@@ -14,6 +14,8 @@ API_STATS_URL = "/api/stats/"
 class TestStatsRoutes(unittest.TestCase):
     def test_get_stats_valid_request(self, mock_get_currency_rates):
         mock_get_currency_rates.return_value = {
+            "table": "A",
+            "currency": "Dolar Amerykański",
             "code": "USD",
             "rates": [
                 {"effectiveDate": "2023-01-01", "mid": 4.20},
@@ -23,6 +25,23 @@ class TestStatsRoutes(unittest.TestCase):
         }
         response = client.get(
             f"{API_STATS_URL}?first_currency=usd&date_from=2023-01-01&date_end=2023-01-07"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("statistics", response.json())
+
+    def test_get_period_greater_than_whole_year(self, mock_get_currency_rates):
+        mock_get_currency_rates.return_value = {
+            "table": "A",
+            "currency": "Dolar Amerykański",
+            "code": "USD",
+            "rates": [
+                {"effectiveDate": "2023-01-01", "mid": 4.20},
+                {"effectiveDate": "2023-01-02", "mid": 4.25},
+                {"effectiveDate": "2023-01-03", "mid": 4.18},
+            ],
+        }
+        response = client.get(
+            f"{API_STATS_URL}?first_currency=usd&date_from=2023-01-01&date_end=2025-01-01"
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("statistics", response.json())
@@ -60,9 +79,18 @@ class TestStatsRoutes(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 422)
 
+    def test_get_stats_dates_equal(self, mock_get_currency_rates):
+        response = client.get(
+            f"{API_STATS_URL}?first_currency=usd&date_from=2023-01-01&date_end=2023-01-01"
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"detail": "invalid_data"})
+
     def test_get_stats_two_currencies_valid(self, mock_get_currency_rates):
         mock_get_currency_rates.side_effect = [
             {
+                "table": "A",
+                "currency": "Dolar Amerykański",
                 "code": "USD",
                 "rates": [
                     {"effectiveDate": "2023-01-01", "mid": 4.20},
@@ -71,6 +99,8 @@ class TestStatsRoutes(unittest.TestCase):
                 ],
             },
             {
+                "table": "A",
+                "currency": "Dolar Amerykański",
                 "code": "EUR",
                 "rates": [
                     {"effectiveDate": "2023-01-01", "mid": 4.50},

@@ -33,8 +33,10 @@ export const defaultCurrencyTo: Currency = {
   name: 'EUR',
 };
 
-/** Minimum date selectable (Based on NBP API docs) */
-export const minDateFrom = '2002-01-02';
+/**
+ * Based on NBP API docs
+ */
+export const minDate = '2002-01-02';
 
 const now = new Date();
 const startDate = new Date();
