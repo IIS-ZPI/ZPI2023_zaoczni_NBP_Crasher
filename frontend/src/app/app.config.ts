@@ -8,6 +8,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { routes } from './app.routes';
 import { Currency, Data, TimeFrame } from './app.model';
 
+/** Application configuration with providers */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -19,12 +20,15 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
+/** Application name */
 export const appName: string = 'NBP Crasher';
 
+/** Default "from" currency */
 export const defaultCurrencyFrom: Currency = {
   name: 'USD',
 };
 
+/** Default "to" currency */
 export const defaultCurrencyTo: Currency = {
   name: 'EUR',
 };
@@ -36,7 +40,6 @@ export const minDate = '2002-01-02';
 
 const now = new Date();
 const startDate = new Date();
-
 const endDate = new Date();
 
 const oneWeekDateFrom = new Date(startDate);
@@ -51,12 +54,13 @@ oneMonthDateFrom.setDate(now.getDate() - 30);
 const threeMonthsDateFrom = new Date(startDate);
 threeMonthsDateFrom.setDate(now.getDate() - 90);
 
-const sixMonthsDateFrom = new Date(startDate)
+const sixMonthsDateFrom = new Date(startDate);
 sixMonthsDateFrom.setDate(now.getDate() - 180);
 
 const oneYearMonthsDateFrom = new Date(startDate);
 oneYearMonthsDateFrom.setDate(now.getDate() - 365);
 
+/** Array of available time frames */
 export const timeFrames: TimeFrame[] = [
   {
     badge: '1W',
@@ -95,16 +99,20 @@ export const timeFrames: TimeFrame[] = [
   },
 ];
 
-export const defaultTimeFrameIndex: number = 0; // 1W
+/** Default time frame index (1W) */
+export const defaultTimeFrameIndex: number = 0;
 
+/** Default time frame (1W) */
 export const defaultTimeFrame: TimeFrame = {
   badge: '1W',
   dateFrom: oneWeekDateFrom,
   dateTo: new Date(endDate),
 };
 
+/** Date format */
 export const dateFormat: string = 'yyyy-MM-dd';
 
+/** Placeholder for blank data */
 export const blankData: Data = {
   statistics: {
     mode: {
@@ -121,7 +129,3 @@ export const blankData: Data = {
   },
   changes_distribution: [],
 };
-function provideAnimations(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
-
