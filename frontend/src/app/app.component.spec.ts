@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 
@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { timeFrames } from './app.config';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { Currency } from './app.model';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -172,6 +173,52 @@ describe('AppComponent', () => {
     };
 
     expect(app.statistictsDominants).toEqual('1.2222 1.2224 1.2226');
+  });
+
+  it('should set specific chart title based on selected currencies', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    const app = fixture.componentInstance;
+
+    const currencyFrom: Currency = {
+      name: 'GBP',
+    };
+    const currencyTo: Currency = {
+      name: 'JPY',
+    };
+
+    const title = app.getChartTitle(currencyFrom, currencyTo);
+
+    expect(title).toBe(`Changes distribution ${currencyFrom.name}/${currencyTo.name}`);
+  });
+
+  it('should update chart title on currencies selection changed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    const app = fixture.componentInstance;
+
+    const previousTitle = app.getChartTitle(app.currencyFrom, app.currencyTo);
+
+    expect(previousTitle).toBe(`Changes distribution ${app.currencyFrom.name}/${app.currencyTo.name}`);
+
+    /**
+     * Updating currencies
+     */
+    app.currencyFrom = {
+      name: 'GBP',
+    };
+    app.currencyTo = {
+      name: 'JPY',
+    };
+
+    fixture.detectChanges();
+
+    const currentTitle = app.getChartTitle(app.currencyFrom, app.currencyTo);
+
+    expect(currentTitle).not.toBe(previousTitle);
+    expect(currentTitle).toBe(`Changes distribution ${app.currencyFrom.name}/${app.currencyTo.name}`);
   });
 
 });
